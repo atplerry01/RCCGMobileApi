@@ -4,6 +4,7 @@ import express from 'express';
 import helmet from 'helmet';
 import "reflect-metadata";
 import { createConnection } from 'typeorm';
+import routes from './routes';
 
 export const startServer = async () => {
 
@@ -18,6 +19,7 @@ export const startServer = async () => {
     limit: '50mb'
   }));
 
+  app.use('/api/', routes);
 
   // await createTypeOrmConn();
   await createConnection().then(async connection => {
