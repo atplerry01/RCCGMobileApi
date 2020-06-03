@@ -1,10 +1,10 @@
 {
    "type": "mysql",
-   "host": "204.93.216.11",
+   "host": "localhost",
    "port": 3306,
-   "username": "atplerry_admin",
-   "password": "Akinlanre@01",
-   "database": "atplerry_rccgmobile",
+   "username": "root",
+   "password": "",
+   "database": "rccghost",
    "synchronize": true,
    "logging": false,
    "entities": [
