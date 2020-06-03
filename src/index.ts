@@ -3,7 +3,8 @@ import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
 import "reflect-metadata";
-import { createConnection } from 'typeorm';
+import createTypeOrmConn from './createTypeOrmConn';
+// import { createConnection } from 'typeorm';
 import routes from './routes';
 
 export const startServer = async () => {
@@ -21,10 +22,10 @@ export const startServer = async () => {
 
   app.use('/api/', routes);
 
-  // await createTypeOrmConn();
-  await createConnection().then(async connection => {
-    console.log(`------------ Type orm connection successful! ----------`);
-  }).catch(error => console.log(error));
+  await createTypeOrmConn();
+  // await createConnection().then(async connection => {
+  //   console.log(`------------ Type orm connection successful! ----------`);
+  // }).catch(error => console.log(error));
 
   app.use("*", (req, res) => {
     res.send("<h1>Welcome to your simple server! Awesome right</h1>");
