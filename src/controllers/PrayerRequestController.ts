@@ -2,7 +2,7 @@ import { validate } from 'class-validator';
 import { Request, Response } from 'express';
 import { PrayerRequest } from '../entity/PrayerRequest';
 import { Paginator } from '../utils/pagination';
-import { createPrayerRequestService, deletePrayerRequestService, getPrayerRequestByIdService, getPrayerRequestService, updatePrayerRequestService } from './../services/prayerRequest';
+import { createPrayerRequestService, deletePrayerRequestService, getPrayerRequestByIdService, getPrayerRequestService, updatePrayerRequestService } from './../services/prayerrequest';
 
 class PrayerRequestController {
   static all = async (req: Request, res: Response) => {
