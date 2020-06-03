@@ -3,7 +3,7 @@ import * as cors from 'cors';
 import * as express from 'express';
 import * as helmet from 'helmet';
 import "reflect-metadata";
-import { createTypeOrmConn } from '../createTypeOrmConn';
+import { createTypeOrmConn } from './../createTypeOrmConn';
 
 export const startServer = async () => {
 
