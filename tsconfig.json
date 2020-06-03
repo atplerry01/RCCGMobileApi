@@ -10,10 +10,16 @@
       "outDir": "./build",
       "emitDecoratorMetadata": true,
       "experimentalDecorators": true,
-      "sourceMap": true
+      "sourceMap": true,
+      "resolveJsonModule": true,
+      "esModuleInterop": true,
+      "types": [
+         "node"
+       ]
    },
    "include": [
-      "src/**/*.ts" /* Include every ts file in source folder */
+      "src",
+      "src/**/*.ts",
     ],
     "exclude": [
       "node_modules" /* exclude everything in  node_modules */
