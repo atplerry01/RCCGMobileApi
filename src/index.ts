@@ -2,9 +2,9 @@ import * as bodyParser from 'body-parser';
 import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
+import * as path from 'path';
 import "reflect-metadata";
-import createTypeOrmConn from './createTypeOrmConn';
-// import { createConnection } from 'typeorm';
+import { createConnection } from 'typeorm';
 import routes from './routes';
 
 export const startServer = async () => {
@@ -22,14 +22,28 @@ export const startServer = async () => {
 
   app.use('/api/', routes);
 
-  await createTypeOrmConn();
-  // await createConnection().then(async connection => {
-  //   console.log(`------------ Type orm connection successful! ----------`);
-  // }).catch(error => console.log(error));
+  app.use(express.static(path.join(__dirname, 'www')));
+  app.set('view engine', 'html');
 
   app.use("*", (req, res) => {
     res.send("<h1>Welcome to your simple server! Awesome right</h1>");
   });
+
+
+  // await createTypeOrmConn();
+  await createConnection().then(async connection => {
+    console.log(`------------ Type orm connection successful! ----------`);
+  }).catch(error => console.log(error));
+
+  // handle global exceptions
+  process.on('uncaughtException', function (err) {
+    console.error('global exception:', err.message);
+  });
+  
+  process.on('unhandledRejection', function (reason: any, _promise) {
+    console.error('unhandled promise rejection:', reason.message || reason);
+  });
+
 
   app.listen(PORT, () => {
     console.log(`🚀 Server ready at http://localhost:${PORT} for REST APIs`);
