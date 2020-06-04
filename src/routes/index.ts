@@ -6,7 +6,6 @@ import prayerrequest from './prayerrequest';
 import prayerwall from './prayerwall';
 import test from './test';
 
-
 const routes = Router();
 
 routes.use('/tests', test);
