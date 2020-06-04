@@ -1,17 +1,22 @@
 import * as bodyParser from 'body-parser';
 import cors from 'cors';
+import * as dotenv from 'dotenv';
 import express from 'express';
 import helmet from 'helmet';
 import * as path from 'path';
 import "reflect-metadata";
-import { createConnection } from 'typeorm';
+import { createConnection, getConnectionOptions } from 'typeorm';
 import routes from './routes';
+
+dotenv.config();
 
 export const startServer = async () => {
 
   const app = express()
-  const PORT: string | number = process.env.PORT || 5000;
+  const PORT: string | number = process.env.PORT || 5003;
 
+  console.log(process.env.NODE_ENV);
+  
   // Call midlewares
   app.use(cors());
   app.use(helmet());
@@ -29,10 +34,16 @@ export const startServer = async () => {
     res.send("<h1>Welcome to your simple server! Awesome right</h1>");
   });
 
-
-  // await createTypeOrmConn();
+  // type ORM Connection
   await createConnection().then(async connection => {
     console.log(`------------ Type orm connection successful! ----------`);
+    const config = await getConnectionOptions(process.env.NODE_ENV);
+    console.log(config);
+    // return createConnection({
+    //   ...config,
+    //   // name: "default"
+    // });
+    
   }).catch(error => console.log(error));
 
   // handle global exceptions
@@ -51,5 +62,15 @@ export const startServer = async () => {
 
   return app;
 }
+
+export const createTypeOrmConn = async () => {
+  createConnection().then(async connection => {
+    console.log(`------------ Type orm connection successful! ----------`);
+    const config = await getConnectionOptions(process.env.NODE_ENV);
+    console.log(config);
+  }).catch(error => console.log(error));
+
+  return null;
+};
 
 startServer();
