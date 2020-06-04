@@ -1,0 +1,14 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "C:\\development\\projects\\wss\\RCCG\\RCCGApi\\RCCGMobile.Api5\\logs\\.c3202951e89a69ce0cbd055bdf97cfe2a6f2010c-audit.json",
+    "files": [
+        {
+            "date": 1591304883210,
+            "name": "C:\\development\\projects\\wss\\RCCG\\RCCGApi\\RCCGMobile.Api5\\logs\\application-2020-06-04.log",
+            "hash": "bc481aae7ee8be29639b95a1d6b7ba57"
+        }
+    ]
+}

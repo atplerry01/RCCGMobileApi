@@ -1,13 +1,14 @@
-import { createConnection, getConnectionOptions } from "typeorm";
+import { createConnection } from "typeorm";
+import { logger } from "./logger";
 
-const createTypeOrmConn = async () => {
+const dbConn = async () => {
   createConnection().then(async connection => {
-    console.log(`------------ Type orm connection successful! ----------`);
-    const config = await getConnectionOptions(process.env.NODE_ENV);
+    logger.info(`------------ Type orm connection successful! ----------`);
+    // const config = await getConnectionOptions(process.env.NODE_ENV);
     // console.log(config);
-  }).catch(error => console.log(error));
+  }).catch(error => logger.error(error));
 
   return null;
 };
 
-export default createTypeOrmConn;
+export default dbConn;
