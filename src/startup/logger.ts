@@ -21,20 +21,20 @@ const options = {
   console: {
     level: 'debug',
     handleExceptions: true,
-    json: false,
+    json: true,
     colorize: true,
   },
 };
 
 var dailyTransport = new transports.DailyRotateFile({
-  filename: 'application-%DATE%.log',
-  dirname: `${appRoot}/logs/`,
+  filename: 'app-%DATE%.log',
+  dirname: process.env.NODE_ENV === "production" ? `${appRoot}/logs/` : `${appRoot}/dev-logs/`,
   level: 'info',
   handleExceptions: true,
   json: true,
   zippedArchive: true,
-  maxSize: '20m',
-  maxFiles: '14d'
+  maxSize: '50m',
+  maxFiles:  process.env.NODE_ENV === "production" ? '14d' : null
 })
 
 // instantiate a new Winston Logger with the settings defined above
@@ -47,7 +47,18 @@ const logger = createLogger({
   exitOnError: false, // do not exit on handled exceptions
 });
 
+export const morganDevOption: Options = {
+  stream: {
+    write: function (message: string) {
+      logger.info(message.trim());
+    },
+  },
+};
+
 export const morganOption: Options = {
+  skip: function (req, res) {
+    return res.statusCode < 400
+  },
   stream: {
     write: function (message: string) {
       logger.info(message.trim());

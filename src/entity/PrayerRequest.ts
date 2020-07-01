@@ -6,7 +6,16 @@ export class PrayerRequest extends BaseEntity {
   id: string;
 
   @Column()
-  title: string;
+  userId: string;
+
+  @Column()
+  fullName: string;
+
+  @Column()
+  email: string;
+
+  @Column()
+  phone: string;
 
   @Column()
   details: string;
@@ -14,8 +23,8 @@ export class PrayerRequest extends BaseEntity {
   @Column()
   parishName: string;
 
-  @Column({ default: 0})
-  viewCount: number;
+  @Column({ default: false })
+  isTreated: boolean;
 
   @CreateDateColumn({ type: "timestamp" })
   requestDate: Date;

@@ -1,0 +1,38 @@
+{"message":"🚀 Server ready at http://localhost:7001 for REST APIs","level":"info"}
+{"message":"------------ Type orm connection successful! ----------","level":"info"}
+{"message":"::1 - - [13/Jun/2020:08:55:07 +0000] \"GET /api/livereports HTTP/1.1\" 200 3640 \"-\" \"PostmanRuntime/7.25.0\"","level":"info"}
+{"message":"::1 - - [13/Jun/2020:08:55:56 +0000] \"GET /api/livereports/094d8e88-505e-41e7-aa8b-c01c56e2f36d HTTP/1.1\" 200 199 \"-\" \"PostmanRuntime/7.25.0\"","level":"info"}
+{"message":"🚀 Server ready at http://localhost:7001 for REST APIs","level":"info"}
+{"message":"------------ Type orm connection successful! ----------","level":"info"}
+{"message":"::1 - - [13/Jun/2020:09:31:14 +0000] \"GET /api/livereports HTTP/1.1\" 200 3640 \"-\" \"PostmanRuntime/7.25.0\"","level":"info"}
+{"message":"::1 - - [13/Jun/2020:09:31:21 +0000] \"GET /api/pastorblogs HTTP/1.1\" 200 1032 \"-\" \"PostmanRuntime/7.25.0\"","level":"info"}
+{"message":"::1 - - [13/Jun/2020:09:31:31 +0000] \"GET /api/livereports/3c37bc82-6981-40d2-a23c-18fdfb40fc2a HTTP/1.1\" 400 42 \"-\" \"PostmanRuntime/7.25.0\"","level":"info"}
+{"message":"::1 - - [13/Jun/2020:09:38:20 +0000] \"GET /api/pastorblogs/3c37bc82-6981-40d2-a23c-18fdfb40fc2a HTTP/1.1\" 200 16 \"-\" \"PostmanRuntime/7.25.0\"","level":"info"}
+{"message":"🚀 Server ready at http://localhost:7001 for REST APIs","level":"info"}
+{"message":"------------ Type orm connection successful! ----------","level":"info"}
+{"message":"🚀 Server ready at http://localhost:7001 for REST APIs","level":"info"}
+{"message":"------------ Type orm connection successful! ----------","level":"info"}
+{"message":"::1 - - [13/Jun/2020:09:39:18 +0000] \"GET /api/pastorblogs/3c37bc82-6981-40d2-a23c-18fdfb40fc2a HTTP/1.1\" 200 734 \"-\" \"PostmanRuntime/7.25.0\"","level":"info"}
+{"message":"🚀 Server ready at http://localhost:7001 for REST APIs","level":"info"}
+{"message":"------------ Type orm connection successful! ----------","level":"info"}
+{"message":"::1 - - [13/Jun/2020:09:58:40 +0000] \"POST /api/file-upload/single HTTP/1.1\" 400 144 \"-\" \"PostmanRuntime/7.25.0\"","level":"info"}
+{"message":"::1 - - [13/Jun/2020:09:58:50 +0000] \"POST /api/file-upload/single HTTP/1.1\" 200 418 \"-\" \"PostmanRuntime/7.25.0\"","level":"info"}
+{"message":"🚀 Server ready at http://localhost:7001 for REST APIs","level":"info"}
+{"message":"------------ Type orm connection successful! ----------","level":"info"}
+{"message":"Error","level":"error","operation":"all","controller":"LiveReportController:all","response":{"err":{"message":"ER_BAD_FIELD_ERROR: Unknown column 'undefined' in 'where clause'","code":"ER_BAD_FIELD_ERROR","errno":1054,"sqlMessage":"Unknown column 'undefined' in 'where clause'","sqlState":"42S22","index":0,"sql":"SELECT * FROM livereport where reportType = undefined order by requestDate desc","name":"QueryFailedError","query":"SELECT * FROM livereport where reportType = undefined order by requestDate desc","parameters":[]},"message":"No entity found"},"status":500}
+{"message":"🚀 Server ready at http://localhost:7001 for REST APIs","level":"info"}
+{"message":"------------ Type orm connection successful! ----------","level":"info"}
+{"message":"🚀 Server ready at http://localhost:7001 for REST APIs","level":"info"}
+{"message":"------------ Type orm connection successful! ----------","level":"info"}
+{"message":"🚀 Server ready at http://localhost:7001 for REST APIs","level":"info"}
+{"message":"------------ Type orm connection successful! ----------","level":"info"}
+{"message":"🚀 Server ready at http://localhost:7001 for REST APIs","level":"info"}
+{"message":"------------ Type orm connection successful! ----------","level":"info"}
+{"message":"🚀 Server ready at http://localhost:7001 for REST APIs","level":"info"}
+{"message":"------------ Type orm connection successful! ----------","level":"info"}
+{"message":"Error","level":"error","operation":"all","controller":"LiveReportController:all","response":{"err":{"message":"ER_BAD_FIELD_ERROR: Unknown column 'image' in 'where clause'","code":"ER_BAD_FIELD_ERROR","errno":1054,"sqlMessage":"Unknown column 'image' in 'where clause'","sqlState":"42S22","index":0,"sql":"SELECT * FROM livereport where reportType = image order by requestDate desc","name":"QueryFailedError","query":"SELECT * FROM livereport where reportType = image order by requestDate desc","parameters":[]},"message":"No entity found"},"status":500}
+{"message":"🚀 Server ready at http://localhost:7001 for REST APIs","level":"info"}
+{"message":"------------ Type orm connection successful! ----------","level":"info"}
+{"message":"::1 - - [13/Jun/2020:21:46:56 +0000] \"GET /api/livereports/type/image HTTP/1.1\" 200 300 \"-\" \"PostmanRuntime/7.25.0\"","level":"info"}
+{"message":"::1 - - [13/Jun/2020:21:47:12 +0000] \"GET /api/livereports/type/video HTTP/1.1\" 200 120 \"-\" \"PostmanRuntime/7.25.0\"","level":"info"}
+{"message":"::1 - - [13/Jun/2020:21:47:32 +0000] \"GET /api/livereports/type/video HTTP/1.1\" 200 300 \"-\" \"PostmanRuntime/7.25.0\"","level":"info"}

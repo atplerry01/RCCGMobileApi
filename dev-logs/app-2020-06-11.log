@@ -1,0 +1,30 @@
+{"message":"🚀 Server ready at http://localhost:7000 for REST APIs","level":"info"}
+{"message":"------------ Type orm connection successful! ----------","level":"info"}
+{"message":"::1 - - [11/Jun/2020:07:45:55 +0000] \"GET /api/pastorblogs HTTP/1.1\" 200 525 \"-\" \"PostmanRuntime/7.25.0\"","level":"info"}
+{"message":"::1 - - [11/Jun/2020:07:46:08 +0000] \"GET /api/pastorblogs/ HTTP/1.1\" 200 525 \"-\" \"PostmanRuntime/7.25.0\"","level":"info"}
+{"message":"::1 - - [11/Jun/2020:07:46:42 +0000] \"PATCH /api/pastorblogs/3c37bc82-6981-40d2-a23c-18fdfb40fc2a HTTP/1.1\" 200 16 \"-\" \"PostmanRuntime/7.25.0\"","level":"info"}
+{"message":"::1 - - [11/Jun/2020:07:48:51 +0000] \"PATCH /api/pastorblogs/3c37bc82-6981-40d2-a23c-18fdfb40fc2a HTTP/1.1\" 200 16 \"-\" \"PostmanRuntime/7.25.0\"","level":"info"}
+{"message":"::1 - - [11/Jun/2020:07:48:59 +0000] \"GET /api/pastorblogs/ HTTP/1.1\" 200 1032 \"-\" \"PostmanRuntime/7.25.0\"","level":"info"}
+{"message":"::1 - - [11/Jun/2020:07:56:47 +0000] \"GET /api/pastorblogs/3c37bc82-6981-40d2-a23c-18fdfb40fc2a HTTP/1.1\" 200 734 \"-\" \"PostmanRuntime/7.25.0\"","level":"info"}
+{"message":"::ffff:192.168.43.239 - - [11/Jun/2020:10:36:44 +0000] \"GET /api/pastorblogs/3c37bc82-6981-40d2-a23c-18fdfb40fc2a HTTP/1.1\" 200 734 \"-\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36\"","level":"info"}
+{"message":"::ffff:192.168.43.239 - - [11/Jun/2020:10:36:45 +0000] \"GET /favicon.ico HTTP/1.1\" 404 150 \"http://192.168.43.239:7000/api/pastorblogs/3c37bc82-6981-40d2-a23c-18fdfb40fc2a\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36\"","level":"info"}
+{"message":"::ffff:192.168.43.239 - - [11/Jun/2020:10:36:45 +0000] \"GET /api/pastorblogs/3c37bc82-6981-40d2-a23c-18fdfb40fc2a HTTP/1.1\" 304 - \"-\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36\"","level":"info"}
+{"message":"🚀 Server ready at http://localhost:7000 for REST APIs","level":"info"}
+{"message":"------------ Type orm connection successful! ----------","level":"info"}
+{"message":"::1 - - [11/Jun/2020:13:22:16 +0000] \"GET /api/pastorblogs/3c37bc82-6981-40d2-a23c-18fdfb40fc2a HTTP/1.1\" 200 734 \"-\" \"PostmanRuntime/7.25.0\"","level":"info"}
+{"message":"🚀 Server ready at http://localhost:7000 for REST APIs","level":"info"}
+{"message":"------------ Type orm connection successful! ----------","level":"info"}
+{"message":"🚀 Server ready at http://localhost:7000 for REST APIs","level":"info"}
+{"message":"------------ Type orm connection successful! ----------","level":"info"}
+{"message":"🚀 Server ready at http://localhost:7000 for REST APIs","level":"info"}
+{"message":"------------ Type orm connection successful! ----------","level":"info"}
+{"message":"🚀 Server ready at http://localhost:7000 for REST APIs","level":"info"}
+{"message":"------------ Type orm connection successful! ----------","level":"info"}
+{"message":"🚀 Server ready at http://localhost:7000 for REST APIs","level":"info"}
+{"message":"------------ Type orm connection successful! ----------","level":"info"}
+{"message":"::1 - - [11/Jun/2020:14:03:01 +0000] \"GET /api/pastorblogs/3c37bc82-6981-40d2-a23c-18fdfb40fc2a HTTP/1.1\" 200 734 \"-\" \"PostmanRuntime/7.25.0\"","level":"info"}
+{"message":"🚀 Server ready at http://localhost:7000 for REST APIs","level":"info"}
+{"message":"🚀 Server ready at http://localhost:7000 for REST APIs","level":"info"}
+{"message":"------------ Type orm connection successful! ----------","level":"info"}
+{"message":"🚀 Server ready at http://localhost:7000 for REST APIs","level":"info"}
+{"message":"------------ Type orm connection successful! ----------","level":"info"}

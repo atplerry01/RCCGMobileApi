@@ -1,0 +1,24 @@
+{
+   "type": "mysql",
+   "host": "localhost",
+   "port": 3306,
+   "username": "root",
+   "password": "",
+   "database": "rccgmobile",
+   "synchronize": true,
+   "logging": false,
+   "entities": [
+      "entity/**/*.**"
+   ],
+   "migrations": [
+      "migration/**/*.**"
+   ],
+   "subscribers": [
+      "subscriber/**/*.**"
+   ],
+   "cli": {
+      "entitiesDir": "entity",
+      "migrationsDir": "migration",
+      "subscribersDir": "subscriber"
+   }
+}

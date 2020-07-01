@@ -7,11 +7,11 @@ import morgan from 'morgan';
 import * as path from 'path';
 import "reflect-metadata";
 import routes from './routes';
-import dbConn from './startup/db';
+import databaseConn from './startup/db';
 import exceptionLogger from './startup/exception';
-import { logger, morganOption } from './startup/logger';
-var createError = require('http-errors');
-// var morgan = require('morgan');
+import { logger, morganDevOption, morganOption } from './startup/logger';
+
+// var createError = require('http-errors');
 
 dotenv.config();
 
@@ -20,19 +20,25 @@ export const startServer = async () => {
   const app = express()
   const PORT: string | number = process.env.PORT || 5003;
 
-  app.use(morgan('combined', morganOption));
+  if (process.env.NODE_ENV === "production") {
+    app.use(morgan('combined', morganOption));
+  } else {
+    app.use(morgan('combined', morganDevOption));
+  }
+
   app.use(cors());
   app.use(helmet());
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json({ limit: '50mb' }));
 
   app.use(express.static(path.join(__dirname, 'www')));
-  app.set('view engine', 'html');
+  // app.use(express.static(path.join(__dirname, 'assets')));
 
+  app.set('view engine', 'html');
   app.use('/api/', routes);
 
-  dbConn();
-  exceptionLogger(app);
+  await databaseConn();
+  await exceptionLogger(app);
 
   app.listen(PORT, () => {
     logger.info(`🚀 Server ready at http://localhost:${PORT} for REST APIs`);
@@ -41,9 +47,16 @@ export const startServer = async () => {
   return app;
 }
 
-
 startServer();
 
+  // // Handle 404
+  // app.use(function (req, res, next) {
+  //   if (req.accepts('html') && res.status(404)) {
+  //     logger.warn('404');
+  //     next();
+  //     return;
+  //   }
+  // });
 
   // error handler
   // catch 404 and forward to error handler

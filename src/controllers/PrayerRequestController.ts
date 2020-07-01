@@ -2,9 +2,11 @@ import { validate } from 'class-validator';
 import { Request, Response } from 'express';
 import { PrayerRequest } from '../entity/PrayerRequest';
 import { Paginator } from '../utils/pagination';
-import { createPrayerRequestService, deletePrayerRequestService, getPrayerRequestByIdService, getPrayerRequestService, updatePrayerRequestService } from './../services/prayerrequest';
+import { createPrayerRequestService, deletePrayerRequestService, getPrayerRequestByIdService, getPrayerRequestService, getUserPrayerRequestService, updatePrayerRequestService } from './../services/prayerrequest';
+import { createPrayerRequestSchema, formatYupError } from '../validations';
 
 class PrayerRequestController {
+
   static all = async (req: Request, res: Response) => {
     const { page, per_page } = req.query;
 
@@ -47,25 +49,53 @@ class PrayerRequestController {
     }
   };
 
+  static getUserRequest = async (req: Request, res: Response) => {
+    const id: any = req.params.userId;
+    const { name } = req.body;
+
+    try {
+      const entity: any = await getUserPrayerRequestService(id);
+
+      if (entity.success) {
+        return res.status(200).json({
+          success: entity.success,
+          data: entity.data,
+        });
+      } else {
+        return res.status(400).json({
+          success: entity.success,
+          msg: entity.msg,
+        });
+      }
+    } catch (error) {
+      return res.status(400).json({
+        success: false,
+        msg: error,
+      });
+    }
+  };
+
   static create = async (req: Request, res: Response) => {
-    let { name } = req.body;
+    let { fullName, email, phone, details, parishName, userId } = req.body;
+
+    try {
+      await createPrayerRequestSchema.validate(req.body, { abortEarly: false });
+    } catch (err) {
+      return res.status(400).json({ errors: formatYupError(err), message: "Validation Error" });
+    }
 
     // Create Entity Object
     let prayerRequest = new PrayerRequest();
-    // prayerRequest.name = name;
 
-    const errors = await validate(PrayerRequest); // TODO:
-
-    if (errors.length > 0) {
-      res.status(400).send({
-        success: false,
-        msg: errors,
-      });
-      return;
-    }
+    prayerRequest.fullName = fullName;
+    prayerRequest.email = email;
+    prayerRequest.phone = phone;
+    prayerRequest.details = details;
+    prayerRequest.parishName = parishName;
+    prayerRequest.userId = userId;
 
     try {
-      await createPrayerRequestService(PrayerRequest);
+      await createPrayerRequestService(prayerRequest);
 
       return res.status(201).json({
         success: true,
@@ -96,17 +126,37 @@ class PrayerRequestController {
       let prayerRequest: PrayerRequest = entity.data;
       // prayerRequest.name = name;
 
-      const errors = await validate(PrayerRequest);
+      await updatePrayerRequestService(PrayerRequest);
 
-      if (errors.length > 0) {
-        res.status(400).send({
+      return res.status(200).json({
+        success: true,
+      });
+    } catch (error) {
+      res.status(400).send({
+        success: false,
+        msg: 'something went wrong',
+      });
+      return;
+    }
+  };
+
+  static treatPrayerRequest = async (req: Request, res: Response) => {
+    const id: any = req.params.id;
+
+    try {
+      const entity: any = await getPrayerRequestByIdService(id);
+
+      if (!entity.success) {
+        return res.status(400).json({
           success: false,
-          msg: errors,
+          msg: entity.msg,
         });
-        return;
       }
 
-      await updatePrayerRequestService(PrayerRequest);
+      let prayerRequest: PrayerRequest = entity.data;
+      prayerRequest.isTreated = true;
+
+      await updatePrayerRequestService(prayerRequest);
 
       return res.status(200).json({
         success: true,

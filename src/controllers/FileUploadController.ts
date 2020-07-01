@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
-import { multiUploadService, singleUploadService } from './../services/fileUpload';
+import { imageUploadService, multiUploadService } from '../services/imageUpload';
+import { videoUploadService } from '../services/videoUpload';
 
 class FileUploadController {
   static all = async (req: Request, res: Response) => {
@@ -11,9 +12,18 @@ class FileUploadController {
     res.send('me');
   };
 
-  static singleUpload = async (req: Request, res: Response) => {
+  static imageUpload = async (req: Request, res: Response) => {
     try {
-      const result = await singleUploadService(req, res) as any;      
+      const result = await imageUploadService(req, res) as any;      
+      return res.status(200).json(result);
+    } catch (error) {
+      return res.status(400).json(error);
+    }
+  };
+
+  static videoUpload = async (req: Request, res: Response) => {
+    try {
+      const result = await videoUploadService(req, res) as any;      
       return res.status(200).json(result);
     } catch (error) {
       return res.status(400).json(error);

@@ -2,9 +2,12 @@ import { validate } from 'class-validator';
 import { Request, Response } from 'express';
 import { PrayerWall } from '../entity/PrayerWall';
 import { Paginator } from '../utils/pagination';
-import { createPrayerWallService, deletePrayerWallService, getPrayerWallByIdService, getPrayerWallService, updatePrayerWallService } from './../services/prayerwall';
+import { PrayerWallUser } from './../entity/PrayerWallUser';
+import { createPrayerWallService, createPrayerWallUserService, deletePrayerWallService, getPrayerWallByIdService, getPrayerWallService, getPrayerWallUserIdService, updatePrayerWallService } from './../services/prayerwall';
+import { createPrayerWallSchema, formatYupError } from '../validations';
 
 class PrayerWallController {
+
   static all = async (req: Request, res: Response) => {
     const { page, per_page } = req.query;
 
@@ -50,6 +53,12 @@ class PrayerWallController {
   static create = async (req: Request, res: Response) => {
     const { title, summary, details, parishName } = req.body;
 
+    try {
+      await createPrayerWallSchema.validate(req.body, { abortEarly: false });
+    } catch (err) {
+      return res.status(400).json({ errors: formatYupError(err), message: "Validation Error" });
+    }
+
     // Create Entity Object
     const prayerWall = new PrayerWall();
     prayerWall.title = title;
@@ -57,19 +66,56 @@ class PrayerWallController {
     prayerWall.details = details;
     prayerWall.parishName = parishName;
 
-    const errors = await validate(prayerWall); // TODO:
+    try {
+      await createPrayerWallService(prayerWall);
 
-    if (errors.length > 0) {
+      return res.status(201).json({
+        success: true,
+      });
+    } catch (error) {
       res.status(400).send({
         success: false,
-        msg: errors,
+        msg: 'something went wrong',
+      });
+      return;
+    }
+  };
+  
+  static createWallUser = async (req: Request, res: Response) => {
+    const { userId, fullName, name, email, phone, parishName, prayerWallId } = req.body;
+
+    console.log('####', prayerWallId, userId);
+    // If user already in the list
+    const entity: any = await getPrayerWallUserIdService(prayerWallId, userId);
+
+    console.log('xxxx', entity);
+
+    if (entity && entity.success) {
+      res.status(400).send({
+        success: false,
+        msg: 'User already added',
       });
       return;
     }
 
-    try {
-      await createPrayerWallService(prayerWall);
+    // TODO: // increase the prayerwall and update counts
+    const prayWall = await getPrayerWallByIdService(prayerWallId);
+    const prayerW: PrayerWall = prayWall.data;
+    prayerW.userCount += 1;
+    
+    await updatePrayerWallService(prayerW);
 
+
+    // Create Entity Object
+    const prayerWallUser = new PrayerWallUser();
+    prayerWallUser.fullName = fullName;
+    prayerWallUser.userId = userId;
+    prayerWallUser.prayerWallId = prayerWallId;
+
+    try {
+      await createPrayerWallUserService(prayerWallUser);
+      // update wall count
+      
       return res.status(201).json({
         success: true,
       });
@@ -102,16 +148,6 @@ class PrayerWallController {
       prayerWall.summary = summary;
       prayerWall.details = details;
       prayerWall.parishName = parishName;
-
-      const errors = await validate(prayerWall);
-
-      if (errors.length > 0) {
-        res.status(400).send({
-          success: false,
-          msg: errors,
-        });
-        return;
-      }
 
       await updatePrayerWallService(prayerWall);
 

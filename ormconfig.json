@@ -4,17 +4,17 @@
    "port": 3306,
    "username": "root",
    "password": "",
-   "database": "rccghost",
+   "database": "rccgmobile",
    "synchronize": true,
    "logging": false,
    "entities": [
-      "src/entity/**/*.ts"
+      "src/entity/**/*.**"
    ],
    "migrations": [
-      "src/migration/**/*.ts"
+      "src/migration/**/*.**"
    ],
    "subscribers": [
-      "src/subscriber/**/*.ts"
+      "src/subscriber/**/*.**"
    ],
    "cli": {
       "entitiesDir": "src/entity",

@@ -1,4 +1,7 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { BlogAudio } from './BlogAudio';
+import { BlogVideo } from './BlogVideo';
+import { Transcribe } from './Transcribe';
 
 @Entity('pastorblog')
 export class PastorBlog extends BaseEntity {
@@ -26,9 +29,24 @@ export class PastorBlog extends BaseEntity {
   @Column()
   parishName: string;
 
-  @Column({ default: 0 })
-  viewCount: number;
+  @Column({ default: false })
+  isApproved: boolean;
+
+  @OneToMany(() => BlogVideo, a => a.pastorBlog)
+  blogVideos: BlogVideo[];
+
+  @OneToMany(() => BlogAudio, a => a.pastorBlog)
+  blogAudios: BlogAudio[];
+
+  @Column("varchar", { nullable: true })
+  transcribeId: string;
+  
+  @ManyToOne(() => Transcribe, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: "transcribeId" })
+  transcribe: Transcribe;
+
 
   @CreateDateColumn({ type: "timestamp" })
   requestDate: Date;
+  
 }

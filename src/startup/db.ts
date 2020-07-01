@@ -1,7 +1,7 @@
 import { createConnection } from "typeorm";
 import { logger } from "./logger";
 
-const dbConn = async () => {
+const databaseConn = async () => {
   createConnection().then(async connection => {
     logger.info(`------------ Type orm connection successful! ----------`);
     // const config = await getConnectionOptions(process.env.NODE_ENV);
@@ -11,4 +11,4 @@ const dbConn = async () => {
   return null;
 };
 
-export default dbConn;
+export default databaseConn;

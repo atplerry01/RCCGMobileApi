@@ -6,6 +6,8 @@ const router = Router();
 router.get('/', PastorBlogController.all);
 router.get('/:id', PastorBlogController.getOneById);
 router.post('/', PastorBlogController.create);
+router.post('/blog/audio', PastorBlogController.createBlogAudio);
+router.post('/blog/video', PastorBlogController.createBlogVideo);
 router.patch('/:id', PastorBlogController.update);
 router.delete('/:id', PastorBlogController.delete);
 
