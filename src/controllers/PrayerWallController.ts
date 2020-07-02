@@ -84,11 +84,8 @@ class PrayerWallController {
   static createWallUser = async (req: Request, res: Response) => {
     const { userId, fullName, name, email, phone, parishName, prayerWallId } = req.body;
 
-    console.log('####', prayerWallId, userId);
     // If user already in the list
     const entity: any = await getPrayerWallUserIdService(prayerWallId, userId);
-
-    console.log('xxxx', entity);
 
     if (entity && entity.success) {
       res.status(400).send({

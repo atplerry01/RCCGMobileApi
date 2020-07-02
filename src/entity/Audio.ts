@@ -1,6 +1,6 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity("audio")
+@Entity("rm_audio")
 export class Audio extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;

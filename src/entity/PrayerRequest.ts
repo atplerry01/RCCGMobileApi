@@ -1,6 +1,6 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('prayerrequest')
+@Entity('rm_prayerrequest')
 export class PrayerRequest extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;

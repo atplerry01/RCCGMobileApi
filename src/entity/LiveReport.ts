@@ -1,6 +1,6 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('livereport')
+@Entity('rm_livereport')
 export class LiveReport extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;

@@ -69,7 +69,6 @@ class AudioController {
     audio.source = source;
 
     try {
-      console.log(audio);
       
       await createAudioService(audio);
 

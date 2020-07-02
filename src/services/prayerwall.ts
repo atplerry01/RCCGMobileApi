@@ -5,7 +5,7 @@ import { PrayerWallUser } from './../entity/PrayerWallUser';
 export const getPrayerWallService = async () => {
   return new Promise(async (resolve, reject) => {
     try {
-      const q = `SELECT * FROM prayerwall order by requestDate desc`;
+      const q = `SELECT * FROM rm_prayerwall order by requestDate desc`;
       const entities = await getConnection().query(q);
       return resolve(entities);
     } catch (err) {
@@ -86,8 +86,7 @@ export const increasePrayerWallUserCountService = async (prayerWallId, userId) =
   const entityRepository = getRepository(PrayerWallUser);
 
   try {
-    const pwu = await entityRepository.findOneOrFail({ where: { prayerWallId, userId }})
-    console.log('===>', pwu);
+    const pwu = await entityRepository.findOneOrFail({ where: { prayerWallId, userId }});
 
     return {
       success: true,

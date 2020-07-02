@@ -4,7 +4,7 @@ import { Transcribe } from './../entity/Transcribe';
 export const getTranscribeService = async () => {
   return new Promise(async (resolve, reject) => {
     try {
-      const q = `SELECT * FROM Transcribe order by createdDate desc`;
+      const q = `SELECT * FROM rm_Transcribe order by createdDate desc`;
       const entities = await getConnection().query(q);
       return resolve(entities);
     } catch (err) {

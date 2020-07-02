@@ -12,7 +12,6 @@ class LiveReportController {
 
     try {
 
-      console.log('xxx');
       const entity: any = await getLiveReportService();
       const result = await Paginator(entity, page, per_page);
 

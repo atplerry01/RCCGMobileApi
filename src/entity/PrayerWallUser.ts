@@ -1,7 +1,7 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { PrayerWall } from './PrayerWall';
 
-@Entity('prayerwalluser')
+@Entity('rm_prayerwalluser')
 export class PrayerWallUser extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;

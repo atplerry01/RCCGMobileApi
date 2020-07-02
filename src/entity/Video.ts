@@ -1,6 +1,6 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity("video")
+@Entity("rm_video")
 export class Video extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;

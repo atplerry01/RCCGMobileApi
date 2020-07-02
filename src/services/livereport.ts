@@ -4,7 +4,7 @@ import { LiveReport } from './../entity/LiveReport';
 export const getLiveReportService = async () => {
   return new Promise(async (resolve, reject) => {
     try {
-      const q = `SELECT * FROM livereport order by requestDate desc`;
+      const q = `SELECT * FROM rm_livereport order by requestDate desc`;
       const entities = await getConnection().query(q);
       return resolve(entities);
     } catch (err) {
@@ -16,7 +16,7 @@ export const getLiveReportService = async () => {
 export const getLiveReportByTypeService = async (type) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const q = `SELECT * FROM livereport where reportType = '${type}' order by requestDate desc`;
+      const q = `SELECT * FROM rm_livereport where reportType = '${type}' order by requestDate desc`;
       const entities = await getConnection().query(q);
       return resolve(entities);
     } catch (err) {

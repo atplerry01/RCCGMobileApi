@@ -6,7 +6,7 @@ import { PastorBlog } from './../entity/PastorBlog';
 export const getPastorBlogService = async () => {
   return new Promise(async (resolve, reject) => {
     try {
-      const q = `SELECT * FROM pastorblog order by requestDate desc`;
+      const q = `SELECT * rm_FROM pastorblog order by requestDate desc`;
       const entities = await getConnection().query(q);
       return resolve(entities);
     } catch (err) {

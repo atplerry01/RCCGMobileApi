@@ -105,8 +105,6 @@ class VideoController {
       video.filePath = filePath;
       video.thumbImagePath = thumbImagePath;
       video.source = source;
-
-      console.log('xxxx', video);
       
       await updateVideoService(video);
 

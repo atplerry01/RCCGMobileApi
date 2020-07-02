@@ -4,7 +4,7 @@ import { PrayerRequest } from './../entity/PrayerRequest';
 export const getPrayerRequestService = async () => {
   return new Promise(async (resolve, reject) => {
     try {
-      const q = `SELECT * FROM prayerrequest order by requestDate desc`;
+      const q = `SELECT * FROM rm_prayerrequest order by requestDate desc`;
       const entities = await getConnection().query(q);
       return resolve(entities);
     } catch (err) {

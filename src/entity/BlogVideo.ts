@@ -2,7 +2,7 @@ import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, Pr
 import { PastorBlog } from "./PastorBlog";
 import { Video } from "./Video";
 
-@Entity("blogvideo")
+@Entity("rm_blogvideo")
 export class BlogVideo extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;

@@ -1,6 +1,6 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity("comment")
+@Entity("rm_comment")
 export class Comment extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;

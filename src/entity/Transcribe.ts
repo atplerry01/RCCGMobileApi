@@ -1,6 +1,6 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity("transcribe")
+@Entity("rm_transcribe")
 export class Transcribe extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;

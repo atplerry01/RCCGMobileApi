@@ -12,8 +12,6 @@ class ThumbnailController {
                 path: ffmpeg.path
             })
 
-            console.log('Done!')
-
             return res.status(201).json({
                 success: true,
             });

@@ -4,7 +4,7 @@ import { Video } from './../entity/Video';
 export const getVideoService = async () => {
   return new Promise(async (resolve, reject) => {
     try {
-      const q = `SELECT * FROM Video order by createdDate desc`;
+      const q = `SELECT * FROM rm_Video order by createdDate desc`;
       const entities = await getConnection().query(q);
       return resolve(entities);
     } catch (err) {
@@ -35,9 +35,7 @@ export const createVideoService = async (entity) => {
 
 export const updateVideoService = async (entity) => {
   const entityRepository = getRepository(Video);
-  const res = await entityRepository.save(entity);
-  console.log('#####', res);
-  return res;
+  return await entityRepository.save(entity);  
 };
 
 export const deleteVideoService = async (id) => {

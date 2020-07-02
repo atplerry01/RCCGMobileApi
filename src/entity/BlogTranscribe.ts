@@ -2,7 +2,7 @@ import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, Pr
 import { PastorBlog } from "./PastorBlog";
 import { Transcribe } from "./Transcribe";
 
-@Entity("blogtranscribe")
+@Entity("rm_blogtranscribe")
 export class BlogTranscribe extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;

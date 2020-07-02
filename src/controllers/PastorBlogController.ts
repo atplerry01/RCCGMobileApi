@@ -172,8 +172,6 @@ class PastorBlogController {
       pastorBlog.imagePath = imagePath;
       pastorBlog.thumbImagePath = thumbImagePath;
       pastorBlog.transcribeId = transcribeId;
-
-      console.log('eeeeeeeeeeee', pastorBlog);
       
       await updatePastorBlogService(pastorBlog);
 

@@ -3,7 +3,7 @@ import { BlogAudio } from './BlogAudio';
 import { BlogVideo } from './BlogVideo';
 import { Transcribe } from './Transcribe';
 
-@Entity('pastorblog')
+@Entity('rm_pastorblog')
 export class PastorBlog extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;

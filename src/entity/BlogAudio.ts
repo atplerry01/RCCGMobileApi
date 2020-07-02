@@ -2,7 +2,7 @@ import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, Pr
 import { Audio } from "./Audio";
 import { PastorBlog } from "./PastorBlog";
 
-@Entity("blogaudio")
+@Entity("rm_blogaudio")
 export class BlogAudio extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
