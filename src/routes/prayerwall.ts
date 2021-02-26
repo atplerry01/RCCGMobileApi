@@ -4,6 +4,7 @@ import PrayerWallController from '../controllers/PrayerWallController';
 const router = Router();
 
 router.get('/', PrayerWallController.all);
+router.get('/divisionId/:id', PrayerWallController.wallByDivisionId);
 router.get('/:id', PrayerWallController.getOneById);
 router.post('/', PrayerWallController.create);
 router.post('/addUser', PrayerWallController.createWallUser);

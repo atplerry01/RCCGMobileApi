@@ -1,9 +1,0 @@
-{"message":"🚀 Server ready at http://localhost:7001 for REST APIs","level":"info"}
-{"message":"------------ Type orm connection successful! ----------","level":"info"}
-{"message":"::1 - - [15/Jun/2020:14:46:42 +0000] \"GET / HTTP/1.1\" 304 - \"-\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36\"","level":"info"}
-{"message":"::1 - - [15/Jun/2020:14:46:43 +0000] \"GET /favicon.ico HTTP/1.1\" 404 150 \"http://localhost:7001/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36\"","level":"info"}
-{"message":"::1 - - [15/Jun/2020:14:46:43 +0000] \"GET / HTTP/1.1\" 304 - \"-\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36\"","level":"info"}
-{"message":"::1 - - [15/Jun/2020:14:46:57 +0000] \"GET /api/pastorblogs HTTP/1.1\" 200 1032 \"-\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36\"","level":"info"}
-{"message":"::1 - - [15/Jun/2020:14:46:58 +0000] \"GET /api/pastorblogs HTTP/1.1\" 304 - \"-\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36\"","level":"info"}
-{"message":"::1 - - [15/Jun/2020:15:02:24 +0000] \"GET /api/prayerwalls HTTP/1.1\" 200 1256 \"-\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36\"","level":"info"}
-{"message":"::1 - - [15/Jun/2020:15:02:25 +0000] \"GET /api/prayerwalls HTTP/1.1\" 304 - \"-\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36\"","level":"info"}

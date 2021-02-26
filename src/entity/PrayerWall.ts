@@ -3,25 +3,19 @@ import { PrayerWallUser } from './PrayerWallUser';
 
 @Entity('rm_prayerwall')
 export class PrayerWall extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn()
+  id: number;
 
   @Column()
   title: string;
 
   @Column()
-  summary: string;
-
-  @Column()
   details: string;
 
-  @Column()
-  parishName: string;
-
-  @Column()
+  @Column("varchar", { nullable: true })
   phone: string;
 
-  @Column()
+  @Column("varchar", { nullable: true })
   whatsapp: string;
 
   @Column({ default: 0 })
@@ -45,6 +39,26 @@ export class PrayerWall extends BaseEntity {
   @CreateDateColumn({ type: "timestamp", nullable: true })
   endDate: Date;
 
+  
+  
+  @Column()
+  division_id: number;
+
+  @Column({ default: 0 })
+  deleted: boolean;
+
+  @Column({ default: 1 })
+  active: boolean;
+
+  @Column("varchar", { nullable: true })
+  modified_by: string;
+
+  @Column("varchar", { nullable: true })
+  time_created: string;
+
+  @Column("varchar", { nullable: true })
+  time_modified: string;
+  
   @CreateDateColumn({ type: "timestamp" })
-  requestDate: Date;
+  createdDate: Date;
 }

@@ -3,7 +3,7 @@ import { logger } from '../startup/logger';
 import { Paginator } from '../utils/pagination';
 import { createLiveReportSchema, formatYupError } from '../validations';
 import { LiveReport } from './../entity/LiveReport';
-import { createLiveReportService, deleteLiveReportService, getLiveReportByIdService, getLiveReportByTypeService, getLiveReportService, updateLiveReportService } from './../services/livereport';
+import { createLiveReportService, deleteLiveReportService, getLiveReportByAliasService, getLiveReportByIdService, getLiveReportByTypeService, getLiveReportService, updateLiveReportService, getReportByDivisionIdService } from './../services/livereport';
 
 class LiveReportController {
 
@@ -13,6 +13,25 @@ class LiveReportController {
     try {
 
       const entity: any = await getLiveReportService();
+      const result = await Paginator(entity, page, per_page);
+
+      return res.status(200).json({
+        success: true,
+        result: result,
+      });
+    } catch (error) {
+      logger.log({ message: 'Error', level: 'error', operation: 'all', controller: 'LiveReportController:all', response: error, status: 500 });
+      return false;
+    }
+  };
+
+  static getReportByDivisionId = async (req: Request, res: Response) => {
+    const { page, per_page } = req.query;
+    const id: any = req.params.id;
+    const type: any = req.params.type;
+
+    try {
+      const entity: any = await getReportByDivisionIdService(id, type);
       const result = await Paginator(entity, page, per_page);
 
       return res.status(200).json({
@@ -39,11 +58,29 @@ class LiveReportController {
         result: result,
       });
     } catch (error) {
-      logger.log({ message: 'Error', level: 'error', operation: 'all', controller: 'LiveReportController:all', response: error, status: 500 });
+      logger.log({ message: 'Error', level: 'error', operation: 'all', controller: 'LiveReportController:reportByType', response: error, status: 500 });
       return false;
     }
   };
 
+  static reportByDivision = async (req: Request, res: Response) => {
+    const { page, per_page } = req.query;
+    const type: any = req.params.type;
+    const divisionAlias: any = req.params.divisionAlias;
+
+    try {
+      const entity: any = await getLiveReportByAliasService(divisionAlias, type);
+      const result = await Paginator(entity, page, per_page);
+
+      return res.status(200).json({
+        success: true,
+        result: result,
+      });
+    } catch (error) {
+      logger.log({ message: 'Error', level: 'error', operation: 'all', controller: 'LiveReportController:reportByType', response: error, status: 500 });
+      return false;
+    }
+  };
 
   static getOneById = async (req: Request, res: Response) => {
     const id: any = req.params.id;
@@ -57,12 +94,14 @@ class LiveReportController {
           data: entity.data,
         });
       } else {
+        logger.log({ controller: 'LiveReportController:getOneById', response: entity.msg, message: 'Error', level: 'error' });
         return res.status(400).json({
           success: entity.success,
           msg: entity.msg,
         });
       }
     } catch (error) {
+      logger.log({ controller: 'LiveReportController:getOneById', response: error, message: 'Error', level: 'error' });
       return res.status(400).json({
         success: false,
         msg: error,
@@ -70,13 +109,15 @@ class LiveReportController {
     }
   };
 
+
   static create = async (req: Request, res: Response) => {
-    const { title, details, reportType, imagePath, thumbImagePath } = req.body;
+    const { title, details, reportType, imagePath, thumbImagePath, division_id } = req.body;
 
     try {
       await createLiveReportSchema.validate(req.body, { abortEarly: false });
     } catch (err) {
-      return res.status(400).json({ errors: formatYupError(err), message: "Validation Error" });
+      logger.log({ controller: 'LiveReportController:create', response: err, message: 'Error', level: 'error' });
+      return res.status(400).json({ success: false, errors: formatYupError(err), msg: "Validation Error" });
     }
 
     // Create Entity Object
@@ -87,6 +128,7 @@ class LiveReportController {
     liveReport.reportType = reportType;
     liveReport.imagePath = imagePath;
     liveReport.thumbImagePath = thumbImagePath;
+    liveReport.division_id = division_id;
 
     try {
       await createLiveReportService(liveReport);
@@ -95,6 +137,7 @@ class LiveReportController {
         success: true,
       });
     } catch (error) {
+      logger.log({ controller: 'LiveReportController:create', response: error, message: 'Error', level: 'error' });
       res.status(400).send({
         success: false,
         msg: 'something went wrong',
@@ -105,7 +148,7 @@ class LiveReportController {
 
   static update = async (req: Request, res: Response) => {
     const id: any = req.params.id;
-    const { title, details, reportType, imagePath, thumbImagePath } = req.body;
+    const { title, details, reportType, imagePath, thumbImagePath, division_id } = req.body;
 
     try {
       const entity: any = await getLiveReportByIdService(id);
@@ -125,6 +168,7 @@ class LiveReportController {
       liveReport.reportType = reportType;
       liveReport.imagePath = imagePath;
       liveReport.thumbImagePath = thumbImagePath;
+      liveReport.division_id = division_id;
 
       await updateLiveReportService(liveReport);
 
@@ -132,6 +176,7 @@ class LiveReportController {
         success: true,
       });
     } catch (error) {
+      logger.log({ controller: 'LiveReportController:create', response: error, message: 'Error', level: 'error' });
       res.status(400).send({
         success: false,
         msg: 'something went wrong',
@@ -163,6 +208,7 @@ class LiveReportController {
         success: true,
       });
     } catch (error) {
+      logger.log({ controller: 'LiveReportController:create', response: error, message: 'Error', level: 'error' });
       res.status(400).send({
         success: false,
         msg: 'something went wrong',
@@ -194,6 +240,7 @@ class LiveReportController {
         success: true,
       });
     } catch (error) {
+      logger.log({ controller: 'LiveReportController:create', response: error, message: 'Error', level: 'error' });
       res.status(400).send({
         success: false,
         msg: 'something went wrong',
@@ -223,6 +270,7 @@ class LiveReportController {
         success: true,
       });
     } catch (error) {
+      logger.log({ controller: 'LiveReportController:create', response: error, message: 'Error', level: 'error' });
       res.status(400).send({
         success: false,
         msg: 'something went wrong',

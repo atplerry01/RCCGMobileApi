@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { logger } from '../startup/logger';
 const ffmpeg = require('ffmpeg-static')
 const genThumbnail = require('simple-thumbnail')
 
@@ -16,6 +17,7 @@ class ThumbnailController {
                 success: true,
             });
         } catch (error) {
+            logger.log({ controller: 'ThumbnailController:create', response: error, message: 'Error', level: 'error' });
             res.status(400).send({
                 success: false,
                 msg: 'something went wrong',

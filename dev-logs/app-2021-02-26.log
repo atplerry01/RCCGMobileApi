@@ -1,0 +1,15 @@
+{"message":"🚀 Server ready at http://localhost:7000 for REST APIs","level":"info"}
+{"message":"🚀 Server ready at http://localhost:2178 for REST APIs","level":"info"}
+{"message":"🚀 Server ready at http://localhost:7000 for REST APIs","level":"info"}
+{"message":"🚀 Server ready at http://localhost:2178 for REST APIs","level":"info"}
+{"errno":"ECONNREFUSED","code":"ECONNREFUSED","syscall":"connect","address":"127.0.0.1","port":3306,"fatal":true,"level":"error"}
+{"message":"Error","level":"error","operation":"all","controller":"LiveReportController:all","response":{"err":{},"message":"No entity found"},"status":500}
+{"message":"Error","level":"error","operation":"all","controller":"LiveReportController:all","response":{"err":{},"message":"No entity found"},"status":500}
+{"message":"Error","level":"error","operation":"all","controller":"LiveReportController:all","response":{"err":{},"message":"No entity found"},"status":500}
+{"message":"Error","level":"error","operation":"all","controller":"LiveReportController:all","response":{"err":{},"message":"No entity found"},"status":500}
+{"message":"Error","level":"error","operation":"all","controller":"LiveReportController:all","response":{"err":{},"message":"No entity found"},"status":500}
+{"message":"Error","level":"error","operation":"all","controller":"LiveReportController:all","response":{"err":{},"message":"No entity found"},"status":500}
+{"message":"Error","level":"error","operation":"all","controller":"LiveReportController:all","response":{"err":{},"message":"No entity found"},"status":500}
+{"message":"Error","level":"error","operation":"all","controller":"LiveReportController:all","response":{"err":{},"message":"No entity found"},"status":500}
+{"message":"Error","level":"error","operation":"all","controller":"LiveReportController:all","response":{"err":{},"message":"No entity found"},"status":500}
+{"message":"Error","level":"error","operation":"all","controller":"LiveReportController:all","response":{"err":{},"message":"No entity found"},"status":500}

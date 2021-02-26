@@ -1,10 +1,9 @@
-import { validate } from 'class-validator';
 import { Request, Response } from 'express';
 import { Transcribe } from '../entity/Transcribe';
 import { logger } from '../startup/logger';
 import { Paginator } from '../utils/pagination';
 import { createTranscribeSchema, formatYupError } from '../validations';
-import { createTranscribeService, deleteTranscribeService, getTranscribeByIdService, getTranscribeService, updateTranscribeService } from './../services/Transcribe';
+import { createTranscribeService, deleteTranscribeService, getTranscribeByIdService, getTranscribeService, updateTranscribeService } from './../services/transcribe';
 
 class TranscribeController {
 
@@ -37,12 +36,14 @@ class TranscribeController {
           data: entity.data,
         });
       } else {
+        logger.log({ controller: 'TranscribeController:getOneById', response: entity.msg, message: 'Error', level: 'error' });
         return res.status(400).json({
           success: entity.success,
           msg: entity.msg,
         });
       }
     } catch (error) {
+      logger.log({ controller: 'TranscribeController:getOneById', response: error, message: 'Error', level: 'error' });
       return res.status(400).json({
         success: false,
         msg: error,
@@ -55,8 +56,9 @@ class TranscribeController {
 
     try {
       await createTranscribeSchema.validate(req.body, { abortEarly: false });
-    } catch (err) {
-      return res.status(400).json({ errors: formatYupError(err), message: "Validation Error" });
+    } catch (error) {
+      logger.log({ controller: 'TranscribeController:create', response: error, message: 'Error', level: 'error' });
+      return res.status(400).json({ errors: formatYupError(error), message: "Validation Error" });
     }
 
     // Create Entity Object
@@ -74,6 +76,7 @@ class TranscribeController {
         success: true,
       });
     } catch (error) {
+      logger.log({ controller: 'TranscribeController:create', response: error, message: 'Error', level: 'error' });
       res.status(400).send({
         success: false,
         msg: 'something went wrong',
@@ -90,6 +93,7 @@ class TranscribeController {
       const entity: any = await getTranscribeByIdService(id);
 
       if (!entity.success) {
+        logger.log({ controller: 'TranscribeController:create', response: entity.msg, message: 'Error', level: 'error' });
         return res.status(400).json({
           success: false,
           msg: entity.msg,
@@ -109,6 +113,7 @@ class TranscribeController {
         success: true,
       });
     } catch (error) {
+      logger.log({ controller: 'TranscribeController:create', response: error, message: 'Error', level: 'error' });
       res.status(400).send({
         success: false,
         msg: 'something went wrong',
@@ -125,6 +130,7 @@ class TranscribeController {
       const entity: any = await getTranscribeByIdService(id);
 
       if (!entity.success) {
+        logger.log({ controller: 'TranscribeController:create', response: entity.msg, message: 'Error', level: 'error' });
         return res.status(400).json({
           success: false,
           msg: entity.msg,
@@ -137,6 +143,7 @@ class TranscribeController {
         success: true,
       });
     } catch (error) {
+      logger.log({ controller: 'TranscribeController:create', response: error, message: 'Error', level: 'error' });
       res.status(400).send({
         success: false,
         msg: 'something went wrong',

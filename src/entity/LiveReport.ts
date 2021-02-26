@@ -2,8 +2,8 @@ import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } 
 
 @Entity('rm_livereport')
 export class LiveReport extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn()
+  id: number;
 
   @Column()
   title: string;
@@ -26,7 +26,25 @@ export class LiveReport extends BaseEntity {
   @Column({ default: 0 })
   isApproved: number;
 
-  @CreateDateColumn({ type: "timestamp" })
-  requestDate: Date;
+  
+  @Column()
+  division_id: string;
 
+  @Column({ default: 0 })
+  deleted: boolean;
+
+  @Column({ default: 1 })
+  active: boolean;
+
+  @Column("varchar", { nullable: true })
+  modified_by: string;
+
+  @Column("varchar", { nullable: true })
+  time_created: string;
+
+  @Column("varchar", { nullable: true })
+  time_modified: string;
+
+  @CreateDateColumn({ type: "timestamp" })
+  createdDate: Date;
 }

@@ -3,7 +3,7 @@ import { logger } from '../startup/logger';
 import { Paginator } from '../utils/pagination';
 import { createVideoSchema, formatYupError } from '../validations';
 import { Video } from './../entity/Video';
-import { createVideoService, deleteVideoService, getVideoByIdService, getVideoService, updateVideoService } from './../services/Video';
+import { createVideoService, deleteVideoService, getVideoByIdService, getVideoService, updateVideoService } from './../services/video';
 
 class VideoController {
 
@@ -36,12 +36,14 @@ class VideoController {
           data: entity.data,
         });
       } else {
+        logger.log({ controller: 'VideoController:getOneById', response: entity.data, message: 'Error', level: 'error' });
         return res.status(400).json({
           success: entity.success,
           msg: entity.msg,
         });
       }
     } catch (error) {
+      logger.log({ controller: 'VideoController:getOneById', response: error, message: 'Error', level: 'error' });
       return res.status(400).json({
         success: false,
         msg: error,
@@ -54,8 +56,9 @@ class VideoController {
     
     try {
       await createVideoSchema.validate(req.body, { abortEarly: false });
-    } catch (err) {
-      return res.status(400).json({ errors: formatYupError(err), message: "Validation Error" });
+    } catch (error) {
+      logger.log({ controller: 'VideoController:create', response: error, message: 'Error', level: 'error' });
+      return res.status(400).json({ errors: formatYupError(error), message: "Validation Error" });
     }
 
     // Create Entity Object
@@ -75,6 +78,7 @@ class VideoController {
         success: true,
       });
     } catch (error) {
+      logger.log({ controller: 'VideoController:create', response: error, message: 'Error', level: 'error' });
       res.status(400).send({
         success: false,
         msg: 'something went wrong',
@@ -91,6 +95,7 @@ class VideoController {
       const entity: any = await getVideoByIdService(id);
 
       if (!entity.success) {
+        logger.log({ controller: 'VideoController:update', response: entity.msg, message: 'Error', level: 'error' });
         return res.status(400).json({
           success: false,
           msg: entity.msg,
@@ -112,6 +117,7 @@ class VideoController {
         success: true,
       });
     } catch (error) {
+      logger.log({ controller: 'VideoController:create', response: error, message: 'Error', level: 'error' });
       res.status(400).send({
         success: false,
         msg: 'something went wrong',
@@ -128,6 +134,7 @@ class VideoController {
       const entity: any = await getVideoByIdService(id);
 
       if (!entity.success) {
+        logger.log({ controller: 'VideoController:delete', response: entity.msg, message: 'Error', level: 'error' });
         return res.status(400).json({
           success: false,
           msg: entity.msg,
@@ -140,6 +147,7 @@ class VideoController {
         success: true,
       });
     } catch (error) {
+      logger.log({ controller: 'VideoController:delete', response: error, message: 'Error', level: 'error' });
       res.status(400).send({
         success: false,
         msg: 'something went wrong',

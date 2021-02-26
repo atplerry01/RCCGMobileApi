@@ -7,5 +7,5 @@ export const createBlogSchema = yup.object().shape({
     details: yup.string().required(),
     imagePath: yup.string().required(),
     thumbImagePath: yup.string().required(),
-    parishName: yup.string().required(),
+    division_id: yup.string().required()
 });

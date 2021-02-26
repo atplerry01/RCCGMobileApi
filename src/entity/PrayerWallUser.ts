@@ -3,25 +3,25 @@ import { PrayerWall } from './PrayerWall';
 
 @Entity('rm_prayerwalluser')
 export class PrayerWallUser extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn()
+  id: number;
 
   @Column()
   prayerWallId: string;
 
-  @Column()
+  @Column("varchar", { nullable: true })
   userId: string;
 
-  @Column()
+  @Column("varchar", { nullable: true })
   fullName: string;
 
-  @Column()
+  @Column("varchar", { nullable: true })
   email: string;
   
-  @Column()
+  @Column("varchar", { nullable: true })
   phone: string;
 
-  @Column()
+  @Column("varchar", { nullable: true })
   parishName: string;
 
   @ManyToOne(() => PrayerWall, { onDelete: 'CASCADE' })
@@ -29,5 +29,5 @@ export class PrayerWallUser extends BaseEntity {
   prayerWall: PrayerWall;
   
   @CreateDateColumn({ type: "timestamp" })
-  requestDate: Date;
+  createdDate: Date;
 }

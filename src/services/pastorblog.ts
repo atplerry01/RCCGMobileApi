@@ -6,7 +6,19 @@ import { PastorBlog } from './../entity/PastorBlog';
 export const getPastorBlogService = async () => {
   return new Promise(async (resolve, reject) => {
     try {
-      const q = `SELECT * rm_FROM pastorblog order by requestDate desc`;
+      const q = `SELECT * FROM rm_pastorblog order by createdDate desc`;
+      const entities = await getConnection().query(q);
+      return resolve(entities);
+    } catch (err) {
+      return reject({ err, message: 'No entity found' });
+    }
+  });
+};
+
+export const getBlogByDivisionService = async (alias) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const q = `SELECT * FROM rm_pastorblog where divisionAlias = '${alias}' order by createdDate desc`;
       const entities = await getConnection().query(q);
       return resolve(entities);
     } catch (err) {
@@ -31,6 +43,18 @@ export const getPastorBlogByIdService = async (Id) => {
       msg: 'Entity not found',
     };
   }
+};
+
+export const getPastorBlogByDivisionIdService = async (Id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const q = `SELECT * FROM rm_pastorblog where division_id = '${Id}' order by createdDate desc`;
+      const entities = await getConnection().query(q);
+      return resolve(entities);
+    } catch (err) {
+      return reject({ err, message: 'No entity found' });
+    }
+  });
 };
 
 export const getPastorBlogByIdOnlyService = async (Id) => {

@@ -1,5 +1,0 @@
-{"message":"🚀 Server ready at http://localhost:7000 for REST APIs","level":"info"}
-{"errno":"ECONNREFUSED","code":"ECONNREFUSED","syscall":"connect","address":"127.0.0.1","port":3306,"fatal":true,"level":"error"}
-{"message":"🚀 Server ready at http://localhost:7000 for REST APIs","level":"info"}
-{"message":"------------ Type orm connection successful! ----------","level":"info"}
-{"message":"::1 - - [26/Jun/2020:07:41:58 +0000] \"GET /api/prayerwalls HTTP/1.1\" 200 791 \"-\" \"PostmanRuntime/7.26.1\"","level":"info"}

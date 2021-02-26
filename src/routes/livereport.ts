@@ -5,7 +5,9 @@ const router = Router();
 
 router.get('/', LiveReportController.all);
 router.get('/type/:type', LiveReportController.reportByType);
+router.get('/division/:divisionAlias/type/:type', LiveReportController.reportByDivision);
 router.get('/:id', LiveReportController.getOneById);
+router.get('/divisionId/:id/type/:type', LiveReportController.getReportByDivisionId);
 router.post('/', LiveReportController.create);
 router.patch('/:id', LiveReportController.update);
 router.patch('/:id/approve', LiveReportController.updateApproval);

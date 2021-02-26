@@ -9,22 +9,40 @@ import "reflect-metadata";
 import routes from './routes';
 import databaseConn from './startup/db';
 import exceptionLogger from './startup/exception';
-import { logger, morganDevOption, morganOption } from './startup/logger';
+import { logger, morganOption } from './startup/logger';
 
 // var createError = require('http-errors');
+
+
 
 dotenv.config();
 
 export const startServer = async () => {
 
   const app = express()
-  const PORT: string | number = process.env.PORT || 5003;
+  const PORT: string | number = process.env.PORT || 9000;
+  const PORT_HTTPS = 2178;
 
-  if (process.env.NODE_ENV === "production") {
-    app.use(morgan('combined', morganOption));
-  } else {
-    app.use(morgan('combined', morganDevOption));
-  }
+  var http = require('http');
+  const https = require('https');
+  const fs = require('fs');
+
+  // if (process.env.NODE_ENV === "production") {
+  //   app.use(morgan('combined', morganOption));
+  // } else {
+  //   app.use(morgan('combined', morganDevOption));
+  // }
+
+  const options = {
+    //  key: fs.readFileSync('/home/rccgworld/rccgworld.org.pem'),
+    //  cert: fs.readFileSync('/home/rccgworld/rccgworld.org.pem')
+    
+    // key: fs.readFileSync('/etc/ssl/certs/rccgworld.org/server.key'),
+    // cert: fs.readFileSync('/etc/ssl/certs/rccgworld.org/server.crt'),
+    // ca: fs.readFileSync('/etc/ssl/certs/rccgworld.org/chain.crt')
+  };
+
+  app.use(morgan('combined', morganOption));
 
   app.use(cors());
   app.use(helmet());
@@ -40,8 +58,15 @@ export const startServer = async () => {
   await databaseConn();
   await exceptionLogger(app);
 
-  app.listen(PORT, () => {
+  var httpServer = http.createServer(app);
+  var httpsServer = https.createServer(options, app);
+
+  httpServer.listen(PORT, () => {
     logger.info(`🚀 Server ready at http://localhost:${PORT} for REST APIs`);
+  });
+
+  httpsServer.listen(PORT_HTTPS, () => {
+    logger.info(`🚀 Server ready at http://localhost:${PORT_HTTPS} for REST APIs`);
   });
 
   return app;

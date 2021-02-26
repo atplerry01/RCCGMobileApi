@@ -4,7 +4,20 @@ import { LiveReport } from './../entity/LiveReport';
 export const getLiveReportService = async () => {
   return new Promise(async (resolve, reject) => {
     try {
-      const q = `SELECT * FROM rm_livereport order by requestDate desc`;
+      const q = `SELECT * FROM rm_livereport order by createdDate desc`;
+      const entities = await getConnection().query(q);
+      return resolve(entities);
+    } catch (err) {
+      return reject({ err, message: 'No entity found' });
+    }
+  });
+};
+
+export const getReportByDivisionIdService = async (Id, type) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      var rType = type === 'video' ? 'video' : 'image';
+      const q = `SELECT * FROM rm_livereport where division_id = '${Id}' and reportType = '${rType}'  order by createdDate desc`;
       const entities = await getConnection().query(q);
       return resolve(entities);
     } catch (err) {
@@ -16,7 +29,20 @@ export const getLiveReportService = async () => {
 export const getLiveReportByTypeService = async (type) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const q = `SELECT * FROM rm_livereport where reportType = '${type}' order by requestDate desc`;
+      const q = `SELECT * FROM rm_livereport where reportType = '${type}'  order by createdDate desc`;
+      const entities = await getConnection().query(q);
+      return resolve(entities);
+    } catch (err) {
+      return reject({ err, message: 'No entity found' });
+    }
+  });
+};
+
+// getLiveReportByAliasService
+export const getLiveReportByAliasService = async (alias, type) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const q = `SELECT * FROM rm_livereport where divisionAlias = '${alias}' and reportType = '${type}'  order by createdDate desc`;
       const entities = await getConnection().query(q);
       return resolve(entities);
     } catch (err) {

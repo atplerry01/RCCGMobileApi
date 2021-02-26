@@ -3,7 +3,7 @@ import { logger } from '../startup/logger';
 import { Paginator } from '../utils/pagination';
 import { createAudioSchema, formatYupError } from '../validations';
 import { Audio } from './../entity/Audio';
-import { createAudioService, deleteAudioService, getAudioByIdService, getAudioService, updateAudioService } from './../services/Audio';
+import { createAudioService, deleteAudioService, getAudioByIdService, getAudioService, updateAudioService } from './../services/audio';
 
 class AudioController {
 
@@ -42,6 +42,7 @@ class AudioController {
         });
       }
     } catch (error) {
+      logger.log({ controller: 'AudioController:getOneById', response: error, message: 'Error', level: 'error' });
       return res.status(400).json({
         success: false,
         msg: error,
@@ -51,10 +52,11 @@ class AudioController {
 
   static create = async (req: Request, res: Response) => {
     const { subject, summary, details, source, filePath, thumbImagePath } = req.body;
-    
+
     try {
       await createAudioSchema.validate(req.body, { abortEarly: false });
     } catch (err) {
+      logger.log({ controller: 'AudioController:create', response: err, message: 'Error', level: 'error' });
       return res.status(400).json({ errors: formatYupError(err), message: "Validation Error" });
     }
 
@@ -69,17 +71,26 @@ class AudioController {
     audio.source = source;
 
     try {
-      
+
       await createAudioService(audio);
 
       return res.status(201).json({
         success: true,
       });
     } catch (error) {
+      logger.log({ controller: 'AudioController:create', response: error, message: 'Error', level: 'error' });
       res.status(400).send({
         success: false,
         msg: 'something went wrong',
       });
+
+      logger.log({
+        message: 'Error', level: 'error', operation: 'create',
+        controller: 'AudioController:create',
+        response: error,
+        status: 400
+      });
+
       return;
     }
   };
@@ -113,6 +124,7 @@ class AudioController {
         success: true,
       });
     } catch (error) {
+      logger.log({ controller: 'AudioController:create', response: error, message: 'Error', level: 'error' });
       res.status(400).send({
         success: false,
         msg: 'something went wrong',
@@ -141,6 +153,7 @@ class AudioController {
         success: true,
       });
     } catch (error) {
+      logger.log({ controller: 'AudioController:create', response: error, message: 'Error', level: 'error' });
       res.status(400).send({
         success: false,
         msg: 'something went wrong',

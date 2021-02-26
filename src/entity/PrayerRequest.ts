@@ -2,8 +2,8 @@ import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } 
 
 @Entity('rm_prayerrequest')
 export class PrayerRequest extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn()
+  id: number;
 
   @Column()
   userId: string;
@@ -11,21 +11,48 @@ export class PrayerRequest extends BaseEntity {
   @Column()
   fullName: string;
 
-  @Column()
+  @Column("varchar", { nullable: true })
   email: string;
 
-  @Column()
+  @Column("varchar", { nullable: true })
   phone: string;
 
   @Column()
   details: string;
 
-  @Column()
-  parishName: string;
+
+  @Column({ default: 0 })
+  viewCount: number;
+
+  @Column({ default: 0 })
+  userCount: number;
+
+  @Column({ default: true })
+  isActive: boolean;
+
 
   @Column({ default: false })
   isTreated: boolean;
 
+  @Column({ default: '00' })
+  division_id: string;
+
+  @Column({ default: 0 })
+  deleted: boolean;
+
+  @Column({ default: 1 })
+  active: boolean;
+
+  @Column("varchar", { nullable: true })
+  modified_by: string;
+
+  @Column("varchar", { nullable: true })
+  time_created: string;
+
+  @Column("varchar", { nullable: true })
+  time_modified: string;
+  
   @CreateDateColumn({ type: "timestamp" })
-  requestDate: Date;
+  createdDate: Date;
+
 }

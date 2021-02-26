@@ -5,7 +5,19 @@ import { PrayerWallUser } from './../entity/PrayerWallUser';
 export const getPrayerWallService = async () => {
   return new Promise(async (resolve, reject) => {
     try {
-      const q = `SELECT * FROM rm_prayerwall order by requestDate desc`;
+      const q = `SELECT * FROM rm_prayerwall order by createdDate desc`;
+      const entities = await getConnection().query(q);
+      return resolve(entities);
+    } catch (err) {
+      return reject({ err, message: 'No entity found' });
+    }
+  });
+};
+
+export const getWallByDivisionIdService = async (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const q = `SELECT * FROM rm_prayerwall where division_id = '${id}' order by createdDate desc`;
       const entities = await getConnection().query(q);
       return resolve(entities);
     } catch (err) {

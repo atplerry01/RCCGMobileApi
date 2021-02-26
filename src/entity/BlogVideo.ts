@@ -4,8 +4,8 @@ import { Video } from "./Video";
 
 @Entity("rm_blogvideo")
 export class BlogVideo extends BaseEntity {
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
+    @PrimaryGeneratedColumn()
+    id: number;
     
     @Column("varchar", { nullable: true })
     pastorBlogId: string;

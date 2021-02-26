@@ -5,4 +5,5 @@ export const createLiveReportSchema = yup.object().shape({
     reportType: yup.string().required(),
     imagePath: yup.string().required(),
     thumbImagePath: yup.string().required(),
+    division_id: yup.string().required()
 });

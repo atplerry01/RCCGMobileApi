@@ -1,9 +1,10 @@
-import { validate } from 'class-validator';
 import { Request, Response } from 'express';
-import { PrayerRequest } from '../entity/PrayerRequest';
-import { Paginator } from '../utils/pagination';
-import { createPrayerRequestService, deletePrayerRequestService, getPrayerRequestByIdService, getPrayerRequestService, getUserPrayerRequestService, updatePrayerRequestService } from './../services/prayerrequest';
-import { createPrayerRequestSchema, formatYupError } from '../validations';
+import { PrayerRequest } from './../entity/PrayerRequest';
+import { PrayerRequestUser } from './../entity/PrayerRequestUser';
+import { createPrayerRequestService, createPrayerRequestUserService, deletePrayerRequestService, getPrayerRequestByIdService, getPrayerRequestService, getPrayerRequestUserIdService, getUserPrayerRequestService, updatePrayerRequestService } from './../services/prayerrequest';
+import { logger } from './../startup/logger';
+import { Paginator } from './../utils/pagination';
+import { createPrayerRequestSchema, formatYupError } from './../validations';
 
 class PrayerRequestController {
 
@@ -19,6 +20,7 @@ class PrayerRequestController {
         data: result,
       });
     } catch (error) {
+      logger.log({ controller: 'PrayerRequestController:create', response: error, message: 'Error', level: 'error' });
       return false;
     }
   };
@@ -42,6 +44,7 @@ class PrayerRequestController {
         });
       }
     } catch (error) {
+      logger.log({ controller: 'PrayerRequestController:create', response: error, message: 'Error', level: 'error' });
       return res.status(400).json({
         success: false,
         msg: error,
@@ -68,6 +71,7 @@ class PrayerRequestController {
         });
       }
     } catch (error) {
+      logger.log({ controller: 'PrayerRequestController:create', response: error, message: 'Error', level: 'error' });
       return res.status(400).json({
         success: false,
         msg: error,
@@ -76,12 +80,13 @@ class PrayerRequestController {
   };
 
   static create = async (req: Request, res: Response) => {
-    let { fullName, email, phone, details, parishName, userId } = req.body;
+    let { fullName, email, phone, details, division_id, userId } = req.body;
 
     try {
       await createPrayerRequestSchema.validate(req.body, { abortEarly: false });
-    } catch (err) {
-      return res.status(400).json({ errors: formatYupError(err), message: "Validation Error" });
+    } catch (error) {
+      logger.log({ controller: 'PrayerRequestController:create', response: error, message: 'Error', level: 'error' });
+      return res.status(400).json({ errors: formatYupError(error), message: "Validation Error" });
     }
 
     // Create Entity Object
@@ -91,7 +96,8 @@ class PrayerRequestController {
     prayerRequest.email = email;
     prayerRequest.phone = phone;
     prayerRequest.details = details;
-    prayerRequest.parishName = parishName;
+    prayerRequest.division_id = division_id;
+
     prayerRequest.userId = userId;
 
     try {
@@ -101,6 +107,7 @@ class PrayerRequestController {
         success: true,
       });
     } catch (error) {
+      logger.log({ controller: 'PrayerRequestController:create', response: error, message: 'Error', level: 'error' });
       res.status(400).send({
         success: false,
         msg: 'something went wrong',
@@ -109,9 +116,57 @@ class PrayerRequestController {
     }
   };
 
+  static createRequestUser = async (req: Request, res: Response) => {
+    const { userId, fullName, name, email, phone, prayerRequestId } = req.body;
+
+    // If user already in the list
+    const entity: any = await getPrayerRequestUserIdService(prayerRequestId, userId);
+
+    if (entity && entity.success) {
+      logger.log({ controller: 'PrayerWallController:create', response: 'User already added', message: 'Error', level: 'error' });
+      res.status(400).send({
+        success: false,
+        msg: 'User already added',
+      });
+      return;
+    }
+
+    // TODO: // increase the prayerwall and update counts
+    const prayRequest = await getPrayerRequestByIdService(prayerRequestId);
+
+    const prayerW: PrayerRequest = prayRequest.data;
+    prayerW.userCount += 1;
+
+    const r = await updatePrayerRequestService(prayerW);
+    
+    // Create Entity Object
+    const prayerRequestUser = new PrayerRequestUser();
+    prayerRequestUser.fullName = fullName;
+    prayerRequestUser.userId = userId;
+    prayerRequestUser.prayerRequestId = prayerRequestId;
+
+    try {
+      await createPrayerRequestUserService(prayerRequestUser);
+      // update wall count
+
+      return res.status(201).json({
+        success: true,
+      });
+    } catch (error) {
+      logger.log({ controller: 'PrayerRequestController:createWallUser', response: error, message: 'Error', level: 'error' });
+      res.status(400).send({
+        success: false,
+        msg: 'something went wrong',
+      });
+      return;
+    }
+
+
+  };
+
   static update = async (req: Request, res: Response) => {
     const id: any = req.params.id;
-    const { name } = req.body;
+    const { name, division_id } = req.body;
 
     try {
       const entity: any = await getPrayerRequestByIdService(id);
@@ -124,7 +179,7 @@ class PrayerRequestController {
       }
 
       let prayerRequest: PrayerRequest = entity.data;
-      // prayerRequest.name = name;
+      prayerRequest.division_id = division_id;
 
       await updatePrayerRequestService(PrayerRequest);
 
@@ -132,6 +187,7 @@ class PrayerRequestController {
         success: true,
       });
     } catch (error) {
+      logger.log({ controller: 'PrayerRequestController:create', response: error, message: 'Error', level: 'error' });
       res.status(400).send({
         success: false,
         msg: 'something went wrong',
@@ -162,6 +218,7 @@ class PrayerRequestController {
         success: true,
       });
     } catch (error) {
+      logger.log({ controller: 'PrayerRequestController:create', response: error, message: 'Error', level: 'error' });
       res.status(400).send({
         success: false,
         msg: 'something went wrong',
@@ -190,6 +247,7 @@ class PrayerRequestController {
         success: true,
       });
     } catch (error) {
+      logger.log({ controller: 'PrayerRequestController:create', response: error, message: 'Error', level: 'error' });
       res.status(400).send({
         success: false,
         msg: 'something went wrong',

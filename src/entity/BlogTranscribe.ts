@@ -4,8 +4,8 @@ import { Transcribe } from "./Transcribe";
 
 @Entity("rm_blogtranscribe")
 export class BlogTranscribe extends BaseEntity {
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
+    @PrimaryGeneratedColumn()
+    id: number;
 
     @Column("varchar", { nullable: true })
     pastorBlogId: string;

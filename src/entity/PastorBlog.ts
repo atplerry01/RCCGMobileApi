@@ -5,8 +5,8 @@ import { Transcribe } from './Transcribe';
 
 @Entity('rm_pastorblog')
 export class PastorBlog extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn()
+  id: number;
 
   @Column()
   subject: string;
@@ -26,9 +26,6 @@ export class PastorBlog extends BaseEntity {
   @Column()
   thumbImagePath: string;
 
-  @Column()
-  parishName: string;
-
   @Column({ default: false })
   isApproved: boolean;
 
@@ -45,8 +42,25 @@ export class PastorBlog extends BaseEntity {
   @JoinColumn({ name: "transcribeId" })
   transcribe: Transcribe;
 
-
-  @CreateDateColumn({ type: "timestamp" })
-  requestDate: Date;
   
+  @Column()
+  division_id: string;
+
+  @Column({ default: 0 })
+  deleted: boolean;
+
+  @Column({ default: 1 })
+  active: boolean;
+
+  @Column("varchar", { nullable: true })
+  modified_by: string;
+
+  @Column("varchar", { nullable: true })
+  time_created: string;
+
+  @Column("varchar", { nullable: true })
+  time_modified: string;
+  
+  @CreateDateColumn({ type: "timestamp" })
+  createdDate: Date;
 }

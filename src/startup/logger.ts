@@ -48,6 +48,9 @@ const logger = createLogger({
 });
 
 export const morganDevOption: Options = {
+  skip: function (req, res) {
+    return res.statusCode < 400
+  },
   stream: {
     write: function (message: string) {
       logger.info(message.trim());
@@ -56,12 +59,9 @@ export const morganDevOption: Options = {
 };
 
 export const morganOption: Options = {
-  skip: function (req, res) {
-    return res.statusCode < 400
-  },
   stream: {
     write: function (message: string) {
-      logger.info(message.trim());
+      // logger.info(message.trim());
     },
   },
 };

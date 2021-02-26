@@ -4,8 +4,8 @@ import { PastorBlog } from "./PastorBlog";
 
 @Entity("rm_blogaudio")
 export class BlogAudio extends BaseEntity {
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
+    @PrimaryGeneratedColumn()
+    id: number;
 
     @Column("varchar", { nullable: true })
     pastorBlogId: string;

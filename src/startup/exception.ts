@@ -8,13 +8,20 @@ const exceptionLogger = async (app) => {
         res.locals.message = err.message;
         res.locals.error = req.app.get('env') === 'development' ? err : {};
         
+        console.log('@@@@@', err);
         // if (res.status(404)) {
         //     logger.info('404');
         // } else {
         //     logger.info('mmmmmm');
         // }
 
-        logger.error(`${err.status || 500} - ${err.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`);
+        logger.error(`${'=====>'} = ${err.status || 500} - ${err.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`);
+        // logger.log({
+        //     message: 'Error', level: 'error', operation: 'create',
+        //     controller: 'AudioController:create',
+        //     response: error,
+        //     status: 400
+        //   });
 
         // render the error page
         res.status(err.status || 500);
