@@ -6,7 +6,7 @@ import { PastorBlog } from './../entity/PastorBlog';
 export const getPastorBlogService = async () => {
   return new Promise(async (resolve, reject) => {
     try {
-      const q = `SELECT * FROM rm_pastorblog order by createdDate desc`;
+      const q = `SELECT * FROM pastorblog order by requestDate desc`;
       const entities = await getConnection().query(q);
       return resolve(entities);
     } catch (err) {
@@ -18,7 +18,7 @@ export const getPastorBlogService = async () => {
 export const getBlogByDivisionService = async (alias) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const q = `SELECT * FROM rm_pastorblog where divisionAlias = '${alias}' order by createdDate desc`;
+      const q = `SELECT * FROM pastorblog where divisionAlias = '${alias}' order by requestDate desc`;
       const entities = await getConnection().query(q);
       return resolve(entities);
     } catch (err) {
@@ -29,15 +29,18 @@ export const getBlogByDivisionService = async (alias) => {
 
 export const getPastorBlogByIdService = async (Id) => {
   const entityRepository = getRepository(PastorBlog);
-
+  
   try {
     return {
       success: true,
-      data: await entityRepository.findOneOrFail(Id, { 
-        relations: ["transcribe", "blogVideos", "blogVideos.video", "blogAudios", "blogAudios.audio"]
-      }),
+      // data: await entityRepository.findOneOrFail(Id, { 
+      //   // relations: ["transcribe", "blogVideos", "blogVideos.video", "blogAudios", "blogAudios.audio"]
+      // }),
+      data: await entityRepository.findOneOrFail(Id),
     };
   } catch (error) {
+    console.log(error);
+    
     return {
       success: false,
       msg: 'Entity not found',
@@ -48,7 +51,7 @@ export const getPastorBlogByIdService = async (Id) => {
 export const getPastorBlogByDivisionIdService = async (Id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const q = `SELECT * FROM rm_pastorblog where division_id = '${Id}' order by createdDate desc`;
+      const q = `SELECT * FROM pastorblog where division_id = '${Id}' order by requestDate desc`;
       const entities = await getConnection().query(q);
       return resolve(entities);
     } catch (err) {

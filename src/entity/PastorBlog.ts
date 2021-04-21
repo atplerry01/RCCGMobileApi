@@ -1,50 +1,52 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { BlogAudio } from './BlogAudio';
-import { BlogVideo } from './BlogVideo';
-import { Transcribe } from './Transcribe';
+import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('rm_pastorblog')
+@Entity('pastorblog')
 export class PastorBlog extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column("varchar", { nullable: true })
   subject: string;
 
-  @Column()
+  @Column("varchar", { nullable: true })
   blogger: string;
 
-  @Column()
+  @Column("varchar", { nullable: true })
   summary: string;
 
-  @Column()
+  @Column("varchar", { nullable: true })
   details: string;
 
-  @Column()
+  @Column("varchar", { nullable: true })
   imagePath: string;
 
-  @Column()
+  @Column("varchar", { nullable: true })
   thumbImagePath: string;
 
-  @Column({ default: false })
-  isApproved: boolean;
-
-  @OneToMany(() => BlogVideo, a => a.pastorBlog)
-  blogVideos: BlogVideo[];
-
-  @OneToMany(() => BlogAudio, a => a.pastorBlog)
-  blogAudios: BlogAudio[];
-
   @Column("varchar", { nullable: true })
-  transcribeId: string;
-  
-  @ManyToOne(() => Transcribe, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: "transcribeId" })
-  transcribe: Transcribe;
+  parishName: string;
 
+  // @Column({ default: false })
+  // isApproved: boolean;
+
+  // @OneToMany(() => BlogVideo, a => a.pastorBlog)
+  // blogVideos: BlogVideo[];
+
+  // @OneToMany(() => BlogAudio, a => a.pastorBlog)
+  // blogAudios: BlogAudio[];
+
+  // @Column("varchar", { nullable: true })
+  // transcribeId: string;
   
-  @Column()
+  // @ManyToOne(() => Transcribe, { onDelete: 'CASCADE' })
+  // @JoinColumn({ name: "transcribeId" })
+  // transcribe: Transcribe;
+
+  @Column({ nullable: true })
   division_id: string;
+
+  @Column({ nullable: true })
+  user_id: string;
 
   @Column({ default: 0 })
   deleted: boolean;
@@ -55,12 +57,9 @@ export class PastorBlog extends BaseEntity {
   @Column("varchar", { nullable: true })
   modified_by: string;
 
-  @Column("varchar", { nullable: true })
-  time_created: string;
+  @Column({ default: 1 })
+  viewCount: boolean;
 
-  @Column("varchar", { nullable: true })
-  time_modified: string;
-  
   @CreateDateColumn({ type: "timestamp" })
-  createdDate: Date;
+  requestDate: Date;
 }

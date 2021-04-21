@@ -1,16 +1,15 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { PrayerRequest } from './PrayerRequest';
+import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('prayerrequestuser')
-export class PrayerRequestUser extends BaseEntity {
+@Entity('rm_prayerroomuser')
+export class PrayerRoomUser extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column("varchar", { nullable: true })
-  prayerRequestId: string;
+  prayerRoomId: string;
 
   @Column("varchar", { nullable: true })
-  user_Id: string;
+  user_id: string;
 
   @Column("varchar", { nullable: true })
   fullName: string;
@@ -24,10 +23,6 @@ export class PrayerRequestUser extends BaseEntity {
   @Column("varchar", { nullable: true })
   parishName: string;
 
-  @ManyToOne(() => PrayerRequest, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: "prayerRequestId" })
-  prayerRequest: PrayerRequest;
-  
   @CreateDateColumn({ type: "timestamp" })
   createdDate: Date;
 }

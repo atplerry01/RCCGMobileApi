@@ -53,7 +53,7 @@ class PrayerRequestController {
   };
 
   static getUserRequest = async (req: Request, res: Response) => {
-    const id: any = req.params.userId;
+    const id: any = req.params.user_Id;
     const { name } = req.body;
 
     try {
@@ -80,7 +80,7 @@ class PrayerRequestController {
   };
 
   static create = async (req: Request, res: Response) => {
-    let { fullName, email, phone, details, division_id, userId } = req.body;
+    let { title, parishName, requestDate, details, division_id, user_id } = req.body;
 
     try {
       await createPrayerRequestSchema.validate(req.body, { abortEarly: false });
@@ -92,13 +92,14 @@ class PrayerRequestController {
     // Create Entity Object
     let prayerRequest = new PrayerRequest();
 
-    prayerRequest.fullName = fullName;
-    prayerRequest.email = email;
-    prayerRequest.phone = phone;
+    prayerRequest.title = title;
     prayerRequest.details = details;
+    prayerRequest.parishName = parishName;
+    prayerRequest.requestDate = requestDate;
     prayerRequest.division_id = division_id;
+    prayerRequest.user_Id = user_id;
 
-    prayerRequest.userId = userId;
+    console.log('prayerRequest ==> ', prayerRequest);
 
     try {
       await createPrayerRequestService(prayerRequest);
@@ -107,6 +108,8 @@ class PrayerRequestController {
         success: true,
       });
     } catch (error) {
+      console.log('error ==>', error);
+
       logger.log({ controller: 'PrayerRequestController:create', response: error, message: 'Error', level: 'error' });
       res.status(400).send({
         success: false,
@@ -117,10 +120,10 @@ class PrayerRequestController {
   };
 
   static createRequestUser = async (req: Request, res: Response) => {
-    const { userId, fullName, name, email, phone, prayerRequestId } = req.body;
+    const { user_Id, fullName, name, email, phone, prayerRequestId } = req.body;
 
     // If user already in the list
-    const entity: any = await getPrayerRequestUserIdService(prayerRequestId, userId);
+    const entity: any = await getPrayerRequestUserIdService(prayerRequestId, user_Id);
 
     if (entity && entity.success) {
       logger.log({ controller: 'PrayerWallController:create', response: 'User already added', message: 'Error', level: 'error' });
@@ -135,14 +138,14 @@ class PrayerRequestController {
     const prayRequest = await getPrayerRequestByIdService(prayerRequestId);
 
     const prayerW: PrayerRequest = prayRequest.data;
-    prayerW.userCount += 1;
+    // prayerW.userCount += 1;
 
     const r = await updatePrayerRequestService(prayerW);
     
     // Create Entity Object
     const prayerRequestUser = new PrayerRequestUser();
     prayerRequestUser.fullName = fullName;
-    prayerRequestUser.userId = userId;
+    prayerRequestUser.user_Id = user_Id;
     prayerRequestUser.prayerRequestId = prayerRequestId;
 
     try {
@@ -210,7 +213,7 @@ class PrayerRequestController {
       }
 
       let prayerRequest: PrayerRequest = entity.data;
-      prayerRequest.isTreated = true;
+      // prayerRequest.isTreated = true;
 
       await updatePrayerRequestService(prayerRequest);
 

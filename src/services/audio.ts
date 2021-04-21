@@ -4,7 +4,7 @@ import { Audio } from './../entity/Audio';
 export const getAudioService = async () => {
   return new Promise(async (resolve, reject) => {
     try {
-      const q = `SELECT * FROM rm_Audio order by createdDate desc`;
+      const q = `SELECT * FROM rm_audio order by createdDate desc`;
       const entities = await getConnection().query(q);
       
       return resolve(entities);

@@ -1,6 +1,7 @@
 import { getConnection, getRepository } from 'typeorm';
 import { PrayerWallGroup } from '../entity/PrayerWallGroup';
-import { PrayerWall } from './../entity/PrayerWall';
+import { PrayerWall } from '../entity/PrayerWall';
+import { PrayerWallUser } from './../entity/PrayerWallUser';
 
 export const getPrayerWallGroupService = async () => {
   return new Promise(async (resolve, reject) => {
@@ -38,49 +39,20 @@ export const getWallByDivisionIdService = async (id) => {
   });
 };
 
-// getPrayerWallByIdService
-export const getPrayerWallByIdService = async (Id) => {
-  const entityRepository = getRepository(PrayerWall);
-  
-  try {
-    return {
-      success: true,
-      // data: await entityRepository.findOneOrFail(Id, { 
-      //   // relations: ["transcribe", "blogVideos", "blogVideos.video", "blogAudios", "blogAudios.audio"]
-      // }),
-      data: await entityRepository.findOneOrFail(Id),
-    };
-  } catch (error) {
-    console.log(error);
-    
-    return {
-      success: false,
-      msg: 'Entity not found',
-    };
-  }
-};
-
-export const getPrayerWallGroupByIdService = async (Id) => {
-  const entityRepository = getRepository(PrayerWallGroup);
-  
-  try {
-    return {
-      success: true,
-      data: await entityRepository.findOneOrFail(Id),
-    };
-  } catch (error) {
-    console.log(error);
-    
-    return {
-      success: false,
-      msg: 'Entity not found',
-    };
-  }
+export const getDivisionGroupService = async (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const q = `SELECT * FROM prayerwall_group where division_id = '${id}' order by created desc`;
+      const entities = await getConnection().query(q);
+      return resolve(entities);
+    } catch (err) {
+      return reject({ err, message: 'No entity found' });
+    }
+  });
 };
 
 
-// getWallByGroupIdService
-export const getWallByGroupIdService = async (id) => {
+export const getPrayerWallByGroupService = async (id) => {
   return new Promise(async (resolve, reject) => {
     try {
       const q = `SELECT * FROM prayerwall where group_id = '${id}' order by created desc`;
@@ -92,16 +64,90 @@ export const getWallByGroupIdService = async (id) => {
   });
 };
 
-export const getDivisionGroupService = async (id) => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const q = `SELECT * FROM prayerwall_group where division_id = '${id}' order by created desc`;
-      const entities = await getConnection().query(q);
-      return resolve(entities);
-    } catch (err) {
-      return reject({ err, message: 'No entity found' });
-    }
-  });
+export const getPrayerWallByIdService = async (Id) => {
+  const entityRepository = getRepository(PrayerWall);
+  try {
+    return {
+      success: true,
+      data: await entityRepository.findOneOrFail(Id, {
+        relations: ["prayerWallUsers"]
+      }),
+    };
+  } catch (error) {
+    return {
+      success: false,
+      msg: 'Entity not found',
+    };
+  }
+};
+
+export const getPrayerWallByIdService2 = async (Id) => {
+  const entityRepository = getRepository(PrayerWall);
+  try {
+    return {
+      success: true,
+      data: await entityRepository.findOneOrFail(Id),
+    };
+  } catch (error) {
+    return {
+      success: false,
+      msg: 'Entity not found',
+    };
+  }
+};
+
+export const getPrayerWallByIdWithRelationshipService = async (Id) => {
+  const entityRepository = getRepository(PrayerWall);
+  try {
+    return {
+      success: true,
+      data: await entityRepository.findOneOrFail(Id, {
+        relations: ["prayerWallUsers"]
+      }),
+    };
+  } catch (error) {
+    return {
+      success: false,
+      msg: 'Entity not found',
+    };
+  }
+};
+
+// getPrayerWallUserIdService
+export const getPrayerWallUserIdService = async (prayerWallId, userId) => {
+  const entityRepository = getRepository(PrayerWallUser);
+
+  try {
+    const pwu = await entityRepository.findOneOrFail({ where: { prayerWallId, userId }})
+
+    return {
+      success: true,
+      data: pwu,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      msg: 'Entity not found',
+    };
+  }
+};
+
+export const increasePrayerWallUserCountService = async (prayerWallId, userId) => {
+  const entityRepository = getRepository(PrayerWallUser);
+
+  try {
+    const pwu = await entityRepository.findOneOrFail({ where: { prayerWallId, userId }});
+
+    return {
+      success: true,
+      data: pwu,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      msg: 'Entity not found',
+    };
+  }
 };
 
 export const createPrayerWallService = async (entity) => {
@@ -118,6 +164,11 @@ export const createPrayerWallGroupService = async (entity) => {
   return result; // await entityRepository.save(entity);
 };
 
+export const createPrayerWallUserService = async (entity) => {
+  const entityRepository = getRepository(PrayerWallUser);
+  return await entityRepository.save(entity);
+};
+
 export const updatePrayerWallService = async (entity) => {
   const entityRepository = getRepository(PrayerWall);
   return await entityRepository.save(entity);
@@ -125,10 +176,5 @@ export const updatePrayerWallService = async (entity) => {
 
 export const deletePrayerWallService = async (id) => {
   const entityRepository = getRepository(PrayerWall);
-  return await entityRepository.delete(id);
-};
-
-export const deletePrayerWallGroupService = async (id) => {
-  const entityRepository = getRepository(PrayerWallGroup);
   return await entityRepository.delete(id);
 };

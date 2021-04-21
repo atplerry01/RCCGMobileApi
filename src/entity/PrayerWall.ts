@@ -1,64 +1,50 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { PrayerWallUser } from './PrayerWallUser';
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('rm_prayerwall')
+@Entity('prayerwall')
 export class PrayerWall extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
-
-  @Column()
+  
+  @Column("varchar", { nullable: true })
   title: string;
 
-  @Column()
+  @Column("varchar", { nullable: true })
+  summary: string;
+
+  @Column("varchar", { nullable: true })
   details: string;
 
   @Column("varchar", { nullable: true })
-  phone: string;
+  group_id: string;
 
   @Column("varchar", { nullable: true })
-  whatsapp: string;
+  division_id: string;
 
-  @Column({ default: 0 })
-  viewCount: number;
+  @Column("varchar", { nullable: true })
+  user_id: string;
 
-  @Column({ default: 0 })
-  userCount: number;
+  @Column("varchar", { nullable: true })
+  parishName: string;
 
   @Column({ default: true })
-  isActive: boolean;
-
-  @Column({ default: false })
-  hasRange: boolean;
-  
-  @OneToMany(() => PrayerWallUser, a => a.prayerWall)
-  prayerWallUsers: PrayerWallUser[];
-
-  @CreateDateColumn({ type: "timestamp", nullable: true })
-  startDate: Date;
-
-  @CreateDateColumn({ type: "timestamp", nullable: true })
-  endDate: Date;
-
-  
-  
-  @Column()
-  division_id: number;
-
-  @Column({ default: 0 })
-  deleted: boolean;
-
-  @Column({ default: 1 })
   active: boolean;
 
   @Column("varchar", { nullable: true })
   modified_by: string;
 
-  @Column("varchar", { nullable: true })
-  time_created: string;
+  @Column({ default: 0 })
+  deleted: boolean;
+
+  @Column({ default: 0 })
+  viewCount: number;
 
   @Column("varchar", { nullable: true })
-  time_modified: string;
-  
-  @CreateDateColumn({ type: "timestamp" })
-  createdDate: Date;
+  requestDate: string;
+
+  @Column("varchar", { nullable: true })
+  modified: string;
+
+  @Column("varchar", { nullable: true })
+  created: string;
+
 }

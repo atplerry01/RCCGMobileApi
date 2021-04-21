@@ -6,7 +6,7 @@ import { logger } from '../startup/logger';
 import { Paginator } from '../utils/pagination';
 import { createBlogSchema, formatYupError } from '../validations';
 import { getAudioByIdService } from './../services/audio';
-import { createPastorBlogAudioService, createPastorBlogService, createPastorBlogVideoService, deletePastorBlogService, getBlogByDivisionService, getPastorBlogByIdOnlyService, getPastorBlogByIdService, getPastorBlogService, updatePastorBlogService, getPastorBlogByDivisionIdService } from './../services/pastorblog';
+import { createPastorBlogAudioService, createPastorBlogService, createPastorBlogVideoService, deletePastorBlogService, getBlogByDivisionService, getPastorBlogByDivisionIdService, getPastorBlogByIdOnlyService, getPastorBlogByIdService, getPastorBlogService, updatePastorBlogService } from './../services/pastorblog';
 import { getVideoByIdService } from './../services/video';
 import { createBlogAudioSchema } from './../validations/yup-schemas/blogAudioSchema';
 import { createBlogVideoSchema } from './../validations/yup-schemas/blogVideoSchema';
@@ -49,6 +49,7 @@ class PastorBlogController {
   };
 
   static getOneById = async (req: Request, res: Response) => {
+    console.log(req.params)
     const id: any = req.params.id;
 
     try {
@@ -112,6 +113,8 @@ class PastorBlogController {
     pastorBlog.thumbImagePath = thumbImagePath;
     pastorBlog.division_id = division_id;
 
+    console.log('pastorBlog: ==>', pastorBlog);
+
     try {
       await createPastorBlogService(pastorBlog);
 
@@ -119,6 +122,7 @@ class PastorBlogController {
         success: true,
       });
     } catch (error) {
+      console.log(error);
       logger.log({ controller: 'PastorBlogController:create', response: error, message: 'Error', level: 'error' });
       res.status(400).send({
         success: false,
@@ -234,7 +238,7 @@ class PastorBlogController {
       pastorBlog.details = details;
       pastorBlog.imagePath = imagePath;
       pastorBlog.thumbImagePath = thumbImagePath;
-      pastorBlog.transcribeId = transcribeId;
+      // pastorBlog.transcribeId = transcribeId;
       pastorBlog.division_id = division_id;
 
       await updatePastorBlogService(pastorBlog);

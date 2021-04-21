@@ -5,16 +5,16 @@ export class Transcribe extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
   
-    @Column()
+    @Column("varchar", { nullable: true })
     subject: string;
   
-    @Column()
+    @Column("varchar", { nullable: true })
     summary: string;
   
-    @Column()
+    @Column("varchar", { nullable: true })
     details: string;
   
-    @Column()
+    @Column("varchar", { nullable: true })
     filePath: string;
     
     @Column({ default: 0 })

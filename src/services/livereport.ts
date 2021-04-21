@@ -68,7 +68,10 @@ export const getLiveReportByIdService = async (Id) => {
 
 export const createLiveReportService = async (entity) => {
   const entityRepository = getRepository(LiveReport);
-  return await entityRepository.save(entity);
+  var result = await entityRepository.save(entity);
+
+  console.log('ok', result);
+  return result;
 };
 
 export const updateLiveReportService = async (entity) => {

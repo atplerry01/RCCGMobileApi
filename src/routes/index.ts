@@ -4,6 +4,7 @@ import fileUpload from './fileUpload';
 import livereport from './livereport';
 import pastorblog from './pastorblog';
 import prayerrequest from './prayerrequest';
+import prayerrooms from './prayerroom';
 import prayerwall from './prayerwall';
 import thumbnail from './thumbnail';
 import transcribe from './transcribe';
@@ -15,6 +16,7 @@ routes.use('/livereports', livereport);
 routes.use('/pastorblogs', pastorblog);
 routes.use('/prayer-requests', prayerrequest);
 routes.use('/prayerwalls', prayerwall);
+routes.use('/prayer-rooms', prayerrooms);
 routes.use('/upload', fileUpload);
 
 routes.use('/audios', audio);

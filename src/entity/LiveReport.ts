@@ -5,19 +5,19 @@ export class LiveReport extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column("varchar", { nullable: true })
   title: string;
 
-  @Column()
+  @Column("varchar", { nullable: true })
   details: string;
 
-  @Column()
+  @Column("varchar", { nullable: true })
   reportType: string;
 
-  @Column()
+  @Column("varchar", { nullable: true })
   imagePath: string;
 
-  @Column()
+  @Column("varchar", { nullable: true })
   thumbImagePath: string;
 
   @Column({ default: 0 })
@@ -27,7 +27,7 @@ export class LiveReport extends BaseEntity {
   isApproved: number;
 
   
-  @Column()
+  @Column("varchar", { nullable: true })
   division_id: string;
 
   @Column({ default: 0 })

@@ -1,0 +1,13 @@
+{"controller":"PrayerWallController:create","response":{"name":"ValidationError","value":{"division_id":"74","details":"RCCG Prayerwall details","parishName":"City of David","summary":"RCCG Prayerwall Summary","title":"Rev RCCG Prayerwall Title Group","group_id":"17","description":"description","prayer_date":"2021-01-01","start_time":"8am","end_time":"6pm"},"errors":["user_id is a required field"],"inner":[{"name":"ValidationError","path":"user_id","type":"required","errors":["user_id is a required field"],"inner":[],"message":"user_id is a required field","params":{"path":"user_id"}}],"message":"user_id is a required field"},"message":"Error","level":"error"}
+{"controller":"LiveReportController:getOneById","response":"Entity not found","message":"Error","level":"error"}
+{"message":"🚀 Server ready at http://localhost:6100 for REST APIs","level":"info"}
+{"message":"🚀 Server ready at http://localhost:2178 for REST APIs","level":"info"}
+{"errno":"ECONNREFUSED","code":"ECONNREFUSED","syscall":"connect","address":"127.0.0.1","port":3306,"fatal":true,"level":"error"}
+{"controller":"PrayerWallGroupController:all","response":{"err":{},"message":"No entity found"},"message":"Error","level":"error"}
+{"controller":"PastorBlogController:create","response":{"err":{},"message":"No entity found"},"message":"Error","level":"error"}
+{"controller":"PastorBlogController:create","response":{"name":"RepositoryNotFoundError","message":"No repository for \"PastorBlog\" was found. Looks like this entity is not registered in current \"default\" connection?"},"message":"Error","level":"error"}
+{"message":"🚀 Server ready at http://localhost:6100 for REST APIs","level":"info"}
+{"message":"🚀 Server ready at http://localhost:2178 for REST APIs","level":"info"}
+{"message":"🚀 Server ready at http://localhost:6100 for REST APIs","level":"info"}
+{"message":"🚀 Server ready at http://localhost:2178 for REST APIs","level":"info"}
+{"message":"------------ Type orm connection successful! ----------","level":"info"}

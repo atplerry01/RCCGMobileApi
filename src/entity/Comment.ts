@@ -5,13 +5,13 @@ export class Comment extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column("varchar", { nullable: true })
     thumbImagePath: string;
 
-    @Column()
+    @Column("varchar", { nullable: true })
     fullName: string;
 
-    @Column({ default: 0 })
+    @Column("varchar", { nullable: true })
     details: string;
 
     @CreateDateColumn({ type: "timestamp" })

@@ -3,12 +3,14 @@ import PrayerWallController from '../controllers/PrayerWallController';
 
 const router = Router();
 
-router.get('/', PrayerWallController.all);
-router.get('/divisionId/:id', PrayerWallController.wallByDivisionId);
+router.get('/groups', PrayerWallController.allGroups);
+router.post('/groups', PrayerWallController.createWallGroup);
+router.get('/groups/division/:id', PrayerWallController.getDivisionGroup);
+router.delete('/group/:id', PrayerWallController.deleteGroups);
+
 router.get('/:id', PrayerWallController.getOneById);
-router.post('/', PrayerWallController.create);
-router.post('/addUser', PrayerWallController.createWallUser);
-router.patch('/:id', PrayerWallController.update);
-router.delete('/:id', PrayerWallController.delete);
+router.get('/group/:id', PrayerWallController.allWallByGroupId);
+router.post('/', PrayerWallController.createWall);
+router.get('/divisionId/:id', PrayerWallController.wallByDivisionId);
 
 export default router;
