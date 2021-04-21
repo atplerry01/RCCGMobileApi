@@ -20,8 +20,8 @@ dotenv.config();
 export const startServer = async () => {
 
   const app = express()
-  const PORT: string | number = process.env.PORT || 9000;
-  const PORT_HTTPS = 2178;
+  const PORT: string | number = process.env.PORT || 6100;
+  const PORT_HTTPS: string | number = process.env.PORT || 2178;
 
   var http = require('http');
   const https = require('https');

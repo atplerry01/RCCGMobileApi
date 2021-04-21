@@ -5,6 +5,8 @@ build/
 tmp/
 temp/
 logs/
+dev_logs/
+*.rar
 
 ormconfig.json
 .env
